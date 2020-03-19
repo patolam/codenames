@@ -1,0 +1,28 @@
+{
+  "npmScope": "codenames",
+  "implicitDependencies": {
+    "angular.json": "*",
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
+    "tsconfig.json": "*",
+    "tslint.json": "*",
+    "nx.json": "*"
+  },
+  "projects": {
+    "codenames": {
+      "tags": []
+    },
+    "codenames-e2e": {
+      "tags": [],
+      "implicitDependencies": ["codenames"]
+    },
+    "api": {
+      "tags": []
+    },
+    "api-interfaces": {
+      "tags": []
+    }
+  }
+}
