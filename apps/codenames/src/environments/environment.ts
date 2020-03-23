@@ -8,8 +8,8 @@ export const environment = {
   // socket: 'http://192.168.1.207:90',
   // api: 'http://89.75.182.128:3333/api',
   // socket: 'http://89.75.182.128:90',
-  api: 'http://localhost:3333/api',
-  socket: 'http://localhost:90',
+  api: 'http://http://77.55.228.42:3333/api',
+  socket: 'http://http://77.55.228.42:90',
 };
 
 /*
