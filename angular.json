@@ -10,7 +10,7 @@
       },
       "root": "apps/codenames",
       "sourceRoot": "apps/codenames/src",
-      "prefix": "codenames",
+      "prefix": "cdn",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -25,7 +25,10 @@
               "apps/codenames/src/favicon.ico",
               "apps/codenames/src/assets"
             ],
-            "styles": ["apps/codenames/src/styles.scss"],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
+              "apps/codenames/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -84,7 +87,10 @@
               "apps/codenames/tsconfig.app.json",
               "apps/codenames/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/codenames/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/codenames/**"
+            ]
           }
         },
         "test": {
@@ -95,6 +101,10 @@
             "passWithNoTests": true,
             "setupFile": "apps/codenames/src/test-setup.ts"
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
     },
@@ -119,8 +129,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/codenames-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/codenames-e2e/**"]
+            "tsConfig": [
+              "apps/codenames-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/codenames-e2e/**"
+            ]
           }
         }
       }
@@ -138,7 +153,9 @@
             "outputPath": "dist/apps/api",
             "main": "apps/api/src/main.ts",
             "tsConfig": "apps/api/tsconfig.app.json",
-            "assets": ["apps/api/src/assets"]
+            "assets": [
+              "apps/api/src/assets"
+            ]
           },
           "configurations": {
             "production": {
@@ -167,7 +184,10 @@
               "apps/api/tsconfig.app.json",
               "apps/api/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/api/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/api/**"
+            ]
           }
         },
         "test": {
@@ -193,7 +213,10 @@
               "libs/api-interfaces/tsconfig.lib.json",
               "libs/api-interfaces/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/api-interfaces/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/api-interfaces/**"
+            ]
           }
         },
         "test": {

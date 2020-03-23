@@ -1,0 +1,11 @@
+<mat-card
+  class="tile"
+  [ngClass]="{
+    'tile--yellow': value === -1,
+    'tile--red': value === 0,
+    'tile--blue': value === 1,
+    'tile--black': value === 2
+  }"
+>
+  <ng-content></ng-content>
+</mat-card>
