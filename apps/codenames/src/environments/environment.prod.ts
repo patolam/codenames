@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  api: 'http://localhost:3333/api',
-  socket: 'http://localhost:90',
+  api: 'http://77.55.228.42:3333/api',
+  socket: 'http://77.55.228.42:90',
 };

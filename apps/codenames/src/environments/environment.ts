@@ -4,12 +4,8 @@
 
 export const environment = {
   production: false,
-  // api: 'http://192.168.1.207:3333/api',
-  // socket: 'http://192.168.1.207:90',
-  // api: 'http://89.75.182.128:3333/api',
-  // socket: 'http://89.75.182.128:90',
-  api: 'http://77.55.228.42:3333/api',
-  socket: 'http://77.55.228.42:90',
+  api: 'http://192.168.1.207:3333/api',
+  socket: 'http://192.168.1.207:90',
 };
 
 /*
