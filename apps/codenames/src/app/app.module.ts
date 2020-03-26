@@ -6,7 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BoardModule } from './board/board.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
-import { BoardComponent } from './board/containers/board/board.component';
+import { routes } from './app.routes';
 
 @NgModule({
   declarations: [AppComponent],
@@ -15,7 +15,7 @@ import { BoardComponent } from './board/containers/board/board.component';
     HttpClientModule,
     BoardModule,
     BrowserAnimationsModule,
-    RouterModule.forRoot([{ path: '', component: BoardComponent }], { useHash: true }),
+    RouterModule.forRoot(routes)
   ],
   providers: [],
   bootstrap: [AppComponent]

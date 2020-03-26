@@ -4,7 +4,6 @@ export enum Team {
 }
 
 export interface Player {
-  id: string;
   name?: string;
   team?: Team;
   leadNo?: number;
@@ -12,15 +11,21 @@ export interface Player {
 
 export interface Game {
   startTeam: Team;
-  redName: string;
-  blueName: string;
-  redLeft: number;
-  blueLeft: number;
+  leaders: {
+    red: {
+      id: string;
+      cardsLeft: number;
+    },
+    blue: {
+      id: string;
+      cardsLeft: number;
+    }
+  }
   current: {
     team: Team;
     wordsNo?: number;
   };
-  boards: {
+  layers: {
     live: any;
     words: string[][];
     game: number[][];
@@ -28,11 +33,19 @@ export interface Game {
   winner: Team;
 }
 
-export interface AppState {
-  players: Player[];
+export interface BoardState {
+  players: {
+    [key: string]: Player,
+  };
   game: Game;
   score: {
     reds: number;
     blues: number;
   }
+}
+
+export interface AppState {
+  boards: {
+    [key: string]: BoardState,
+  };
 }

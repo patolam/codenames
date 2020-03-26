@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { Observable } from 'rxjs';
-import { AppState, Player, Team } from '../../../../../../shared/model/state';
+import { BoardState, Player, Team } from '../../../../../../shared/model/state';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute } from '@angular/router';
 
 interface Tile {
   id: number;
@@ -16,27 +17,45 @@ interface Tile {
   styleUrls: ['./board.component.scss']
 })
 export class BoardComponent implements OnInit {
-  state$: Observable<AppState> = this.socket.fromEvent<AppState>('state');
+  state$: Observable<BoardState>;
+  clientId: string;
+  boardId: number;
 
-  state: AppState;
+  state: BoardState;
   teams = [Team.Red, Team.Blue];
 
   playerForm: FormGroup;
 
+  image: any;
+
   constructor(
     private socket: Socket,
     private formBuilder: FormBuilder,
-    private snackBar: MatSnackBar
-  ) {}
+    private snackBar: MatSnackBar,
+    private route: ActivatedRoute
+  ) {
+    route.params.subscribe(({ id }) => {
+      this.boardId = id;
+      this.state$ = this.socket.fromEvent<BoardState>(id);
+    });
+  }
 
   ngOnInit(): void {
+    this.socket.on('connect', () => {
+      this.clientId = this.socket.ioSocket.id;
+      this.socket.emit('returnState', { boardId: this.boardId });
+      console.log(this.clientId);
+    });
+
     this.playerForm = this.formBuilder.group({
       name: [''],
       team: [Team.Red]
     });
 
-    this.state$.subscribe((state: AppState) => {
+    this.state$.subscribe((state: BoardState) => {
       this.state = state;
+
+      console.log(state);
 
       if (this.state?.game && !this.state?.game.winner) {
         this.playerForm.disable();
@@ -56,27 +75,43 @@ export class BoardComponent implements OnInit {
     });
   }
 
-  emit(player: Player) {
-    this.socket.emit('player', player);
+  playerUpdate(player: Player) {
+    this.socket.emit('playerUpdate', {
+      boardId: this.boardId,
+      player
+    });
   }
 
-  startGame() {
-    this.socket.emit('startGame');
+  gameStart() {
+    this.socket.emit('gameStart', {
+      boardId: this.boardId
+    });
   }
 
-  stopGame() {
-    this.socket.emit('stopGame');
+  gameStop() {
+    this.socket.emit('gameStop', {
+      boardId: this.boardId
+    });
   }
 
-  clearScore() {
-    this.socket.emit('clearScore');
+  scoreClear() {
+    this.socket.emit('scoreClear', {
+      boardId: this.boardId
+    });
   }
 
-  acceptMoves(value: number) {
-    this.socket.emit('acceptMoves', value);
+  movesAccept(value: number) {
+    this.socket.emit('movesAccept', {
+      boardId: this.boardId,
+      value
+    });
   }
 
-  tileClicked(col: number, row: number): void {
-    this.socket.emit('nextMove', { col, row });
+  moveNext(col: number, row: number): void {
+    this.socket.emit('moveNext', {
+      boardId: this.boardId,
+      col,
+      row
+    });
   }
 }

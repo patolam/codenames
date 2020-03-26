@@ -37,13 +37,11 @@ export class AppService {
     return this.arrayToBoard(_.shuffle(board));
   }
 
-  getNextLeader(players: Player[], team: Team): Player {
-    const teamPlayers = players.filter((item: Player) => item.team === team);
-    const minLead = _.minBy(teamPlayers, 'leadNo').leadNo;
+  getNextLeader(players: { [key: string]: Player }, team: Team): string {
+    const teamIds: string[] = Object.keys(players).filter((key: string) => players[key].team === team);
+    const minLead = _.minBy(Object.values(players), 'leadNo').leadNo;
 
-    return _.sample(
-      teamPlayers.filter((item: Player) => item.leadNo === minLead)
-    );
+    return _.sample(teamIds.filter((key: string) => players[key].leadNo === minLead));
   }
 
   private arrayToBoard(array: any[]): any[][] {

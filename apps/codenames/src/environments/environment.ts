@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  api: 'http://192.168.1.207:3333/api',
-  socket: 'http://192.168.1.207:90',
+  api: 'http://localhost:3333/api',
+  socket: 'http://localhost:90',
 };
 
 /*

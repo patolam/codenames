@@ -12,11 +12,13 @@ import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
 import { environment } from '../../environments/environment';
 import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
-import { TeamPipe } from './containers/board/board.pipe';
+import { TeamPipe } from '../../../../shared/pipe/board.pipe';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatChipsModule } from '@angular/material/chips';
+import { RouterModule } from '@angular/router';
+import { routes } from './board.routes';
 
 const config: SocketIoConfig = { url: environment.socket, options: {} };
 
@@ -37,7 +39,8 @@ const config: SocketIoConfig = { url: environment.socket, options: {} };
     MatSliderModule,
     MatSnackBarModule,
     MatBadgeModule,
-    MatChipsModule
+    MatChipsModule,
+    RouterModule.forChild(routes),
   ],
   providers: [
     MatSnackBar,

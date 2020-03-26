@@ -8,153 +8,134 @@ import {
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { Logger } from '@nestjs/common';
-import { AppState, Game, Player, Team } from '../../../shared/model/state';
+import { BoardState, Game, Player, Team } from '../../../shared/model/state';
 import * as _ from 'lodash';
 import { AppService } from './app.service';
-
-const initialState: AppState = {
-  players: [],
-  game: null,
-  score: {
-    reds: 0,
-    blues: 0
-  }
-};
+import { StateService } from './state/state.service';
 
 @WebSocketGateway(90)
-export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
+export class AppGateway
+  implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer() server: Server;
-
-  state: AppState;
 
   private logger: Logger = new Logger('AppGateway');
 
+  private readonly boards: { [key: string]: BoardState };
+
   constructor(
-    private appService: AppService
+    private appService: AppService,
+    private stateService: StateService
   ) {
-    this.state = initialState;
+    this.boards = stateService.appState.boards;
   }
 
-  @SubscribeMessage('player')
-  handlePlayer(client: Socket, player: Partial<Player>): void {
-    const idx = this.getIdx(client.id);
+  @SubscribeMessage('returnState')
+  returnState(client: Socket, data: { boardId: string }): void {
+    this.server.emit(data.boardId, this.stateService.returnState(data));
+  }
 
-    if (idx > -1) {
-      this.state.players[idx] = {
-        ...this.state.players[idx],
-        name: player.name,
-        team: player.team,
-        leadNo: 0
-      };
+  @SubscribeMessage('playerUpdate')
+  playerUpdate(
+    client: Socket,
+    data: { boardId: string; player: Player }
+  ): void {
+    this.server.emit(
+      data.boardId,
+      this.stateService.playerUpdate(client.id, data)
+    );
+  }
+
+  @SubscribeMessage('gameStart')
+  gameStart(client: Socket, data: { boardId: string }): void {
+    const players = { ...this.boards[data.boardId].players };
+
+    const redId: string = this.appService.getNextLeader(players, Team.Red);
+    const blueId: string = this.appService.getNextLeader(players, Team.Blue);
+
+    if (redId) {
+      players[redId].leadNo++;
     }
 
-    this.server.emit('state', this.state);
-  }
+    if (blueId) {
+      players[blueId].leadNo++;
+    }
 
-  @SubscribeMessage('startGame')
-  handleStartGame(client: Socket): void {
-    const nextTeam: Team = _.sample(Team);
-    const leadRed: Player = this.appService.getNextLeader(this.state.players, Team.Red);
-    const leadBlue: Player = this.appService.getNextLeader(this.state.players, Team.Blue);
-
-    const players: Player[] = [...this.state.players];
-    const redIdx = players.findIndex((item: Player) => item.name === leadRed.name);
-    const blueIdx = players.findIndex((item: Player) => item.name === leadBlue.name);
-
-    players[redIdx].leadNo++;
-    players[blueIdx].leadNo++;
+    const nextTeam: Team =
+      blueId && redId ? _.sample(Team) : redId ? Team.Red : Team.Blue;
 
     const game: Game = {
       startTeam: nextTeam,
-      redName: leadRed.name,
-      blueName: leadBlue.name,
-      redLeft: nextTeam === Team.Red ? 9 : 8,
-      blueLeft: nextTeam === Team.Blue ? 9 : 8,
+      leaders: {
+        red: {
+          id: redId,
+          cardsLeft: nextTeam === Team.Red ? 9 : 8
+        },
+        blue: {
+          id: blueId,
+          cardsLeft: nextTeam === Team.Blue ? 9 : 8
+        }
+      },
       current: {
         team: nextTeam,
         wordsNo: null
       },
-      boards: {
+      layers: {
         live: this.appService.getLiveBoard(),
         words: this.appService.getWordsBoard(),
         game: this.appService.getGameBoard(nextTeam)
       },
-      winner: null,
+      winner: null
     };
 
-    this.state = {
-      ...this.state,
-      game,
-      players
-    };
-
-    this.server.emit('state', this.state);
+    this.server.emit(
+      data.boardId,
+      this.stateService.gameStart(game, players, data)
+    );
   }
 
-  @SubscribeMessage('stopGame')
-  handleStopGame(client: Socket): void {
-    this.state = {
-      ...this.state,
-      game: null
-    };
-
-    this.server.emit('state', this.state);
+  @SubscribeMessage('gameStop')
+  gameStop(client: Socket, data: { boardId: string }): void {
+    this.server.emit(data.boardId, this.stateService.gameStop(data));
   }
 
-  @SubscribeMessage('clearScore')
-  clearScore(client: Socket): void {
-    this.state = {
-      ...this.state,
-      score: {
-        reds: 0,
-        blues: 0
-      }
-    };
-
-    this.server.emit('state', this.state);
+  @SubscribeMessage('scoreClear')
+  scoreClear(client: Socket, data: { boardId: string }): void {
+    this.server.emit(data.boardId, this.stateService.scoreClear(data));
   }
 
-  @SubscribeMessage('acceptMoves')
-  handleAcceptMoves(client: Socket, value: number): void {
-    this.state = {
-      ...this.state,
-      game: {
-        ...this.state.game,
-        current: {
-          ...this.state.game.current,
-          wordsNo: value
-        }
-      }
-    };
-
-    this.server.emit('state', this.state);
+  @SubscribeMessage('movesAccept')
+  movesAccept(client: Socket, data: { boardId: string; value: number }): void {
+    this.server.emit(data.boardId, this.stateService.movesAccept(data));
   }
 
-  @SubscribeMessage('nextMove')
-  handleNextMove(client: Socket, values: { col: number, row: number }): void {
-    const { col, row } = values;
+  @SubscribeMessage('moveNext')
+  moveNext(client: Socket, data: { boardId: string; col: number; row: number }): void {
+    const { boardId, col, row } = data;
+    const state = this.boards[boardId];
 
-    const game = this.state.game.boards.game;
-    const live = [...this.state.game.boards.live];
-    let current = { ...this.state.game.current };
+    const game = state.game.layers.game;
+    const live = [...state.game.layers.live];
+    let current = { ...state.game.current };
 
     live[col][row] = game[col][row];
 
     const teamId: number = current.team === Team.Red ? 0 : 1;
 
-    const redCount = _.countBy(_.flatten(live), (value => value === 0)).true;
-    const blueCount = _.countBy(_.flatten(live), (value => value === 1)).true;
+    const points = {
+      reds: _.countBy(_.flatten(live), value => value === 0).true,
+      blues: _.countBy(_.flatten(live), value => value === 1).true
+    };
 
     let winner: Team = null;
 
-    if (redCount === (this.state.game.startTeam === Team.Red ? 9 : 8)) {
+    if (points.reds === (state.game.startTeam === Team.Red ? 9 : 8)) {
       winner = Team.Red;
-    } else if (blueCount === (this.state.game.startTeam === Team.Blue ? 9 : 8)) {
+    } else if (points.blues === (state.game.startTeam === Team.Blue ? 9 : 8)) {
       winner = Team.Blue;
     } else if (game[col][row] === 2) {
-      winner = this.state.game.current.team === Team.Red ? Team.Blue : Team.Red;
+      winner = state.game.current.team === Team.Red ? Team.Blue : Team.Red;
     }
-      /* If there was a black tile */
+    /* If there was a black tile */
     if (winner) {
       current = {
         team: null,
@@ -176,46 +157,31 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
       };
     }
 
-    this.state = {
-      ...this.state,
-      game: {
-        ...this.state.game,
-        boards: {
-          ...this.state.game.boards,
-          live
-        },
-        current,
-        winner,
-        redLeft: (this.state.game.startTeam === Team.Red ? 9 : 8) - redCount,
-        blueLeft: (this.state.game.startTeam === Team.Blue ? 9 : 8) - blueCount,
-      },
-      score: {
-        ...this.state.score,
-        reds: winner === Team.Red ? ++this.state.score.reds : this.state.score.reds,
-        blues: winner === Team.Blue ? ++this.state.score.blues : this.state.score.blues,
-      }
+    const result = {
+      live,
+      current,
+      points,
+      winner
     };
 
-    this.server.emit('state', this.state);
+    this.server.emit(boardId, this.stateService.moveNext({ boardId, result }));
   }
 
   afterInit(server: Server) {
-    this.logger.log('Init');
+    this.logger.log('Socket server started');
   }
 
   handleConnection(client: Socket, ...args: any[]) {
     this.logger.log(`Client connected: ${client.id}`);
-
-    this.state.players.push({ id: client.id, leadNo: 0 });
-    this.server.emit('state', this.state);
   }
 
   handleDisconnect(client: Socket) {
     this.logger.log(`Client disconnected: ${client.id}`);
 
-    this.state.players.splice(this.getIdx(client.id), 1);
-    this.server.emit('state', this.state);
-  }
+    const { boardId, state } = this.stateService.handleDisconnect(client.id);
 
-  private getIdx = (id: string): number => this.state.players.findIndex((item: Player) => item.id === id);
+    if (state) {
+      this.server.emit(boardId, state);
+    }
+  }
 }
