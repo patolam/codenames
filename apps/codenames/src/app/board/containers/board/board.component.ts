@@ -44,7 +44,6 @@ export class BoardComponent implements OnInit {
     this.socket.on('connect', () => {
       this.clientId = this.socket.ioSocket.id;
       this.socket.emit('returnState', { boardId: this.boardId });
-      console.log(this.clientId);
     });
 
     this.playerForm = this.formBuilder.group({
@@ -54,8 +53,6 @@ export class BoardComponent implements OnInit {
 
     this.state$.subscribe((state: BoardState) => {
       this.state = state;
-
-      console.log(state);
 
       if (this.state?.game && !this.state?.game.winner) {
         this.playerForm.disable();
