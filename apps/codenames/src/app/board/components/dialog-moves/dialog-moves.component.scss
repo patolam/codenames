@@ -1,0 +1,29 @@
+@import "../../../../assets/colors";
+
+:host {
+  .container {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    .button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      flex: 0 1 calc(33% - 2px);
+
+      border: 0;
+      padding: 16px;
+      cursor: pointer;
+
+      font-family: 'Baloo 2', cursive;
+      font-size: 20px;
+
+      margin: 0 2px 2px 0;
+
+      color: $gelato;
+      background-color: $mustard;
+    }
+  }
+}

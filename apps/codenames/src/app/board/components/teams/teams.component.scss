@@ -1,0 +1,77 @@
+@import "../../../../assets/colors";
+
+:host {
+  .teams {
+    margin: 16px;
+    font-family: 'Baloo 2', cursive;
+
+    &__header {
+      display: flex;
+      justify-content: center;
+      font-size: 18px;
+
+      .header {
+        display: flex;
+        align-items: center;
+        flex: 0 1 50%;
+
+        color: $gelato;
+
+        text-transform: uppercase;
+
+        &__reds, &__blues {
+          padding: 4px 8px;
+
+          display: flex;
+
+          .name {
+            margin-right: 8px;
+          }
+        }
+
+        &__reds {
+          background-color: $coral;
+        }
+
+        &__blues {
+          background-color: $blue;
+        }
+      }
+    }
+
+    &__body {
+      display: flex;
+
+      margin-top: 16px;
+      height: 200px;
+
+      border: 2px solid $black;
+
+      .body {
+        &__reds, &__blues {
+          flex: 0 1 50%;
+
+          .player {
+            display: flex;
+            align-items: center;
+            margin: 8px;
+
+            .leader {
+              padding: 2px 4px;
+              margin-left: 8px;
+
+              background-color: $mustard;
+              color: $gelato;
+              font-size: 12px;
+              text-transform: uppercase;
+            }
+          }
+
+          .name {
+            margin-right: 8px;
+          }
+        }
+      }
+    }
+  }
+}

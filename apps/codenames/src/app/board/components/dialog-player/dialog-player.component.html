@@ -1,0 +1,34 @@
+<cdn-dialog header="Hi, let's meet">
+  <div class="form">
+    <form [formGroup]="playerForm">
+      <mat-form-field appearance="outline">
+        <mat-label>Your name</mat-label>
+        <input #input
+               matInput
+               formControlName="name"
+               placeholder="Type your name"
+               required
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Your team</mat-label>
+        <mat-select formControlName="team">
+          <mat-option *ngFor="let team of teams" [value]="team">
+            {{ team }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div class="button">
+        <button matRipple class="button__join"
+                [mat-dialog-close]="data.playerForm"
+                [disabled]="state?.game && !state?.game?.winner"
+                type="submit"
+        >
+          Join the game
+        </button>
+      </div>
+    </form>
+  </div>
+</cdn-dialog>

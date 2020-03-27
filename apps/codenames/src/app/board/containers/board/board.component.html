@@ -1,135 +1,61 @@
-<mat-toolbar color="primary" class="toolbar">
-  <span>Codenames</span>
+<cdn-header
+  [boardId]="boardId"
+  [playerForm]="playerForm"
+  (openDialog)="openDialog()"
+></cdn-header>
 
-  <div class="toolbar__game">
-    <button mat-flat-button *ngIf="!state?.game || state?.game?.winner" (click)="gameStart()" [disabled]="
-    (state?.players | team:'Red' | keyvalue).length < 2 || (state?.players | team:'Blue' | keyvalue).length < 2">
-      Start game
-    </button>
-    <button mat-flat-button *ngIf="state?.game && !state?.game?.winner" (click)="gameStop()">Stop game</button>
+<div class="toolbar">
+<!--  [disabled]="(state?.players | team:'Red' | keyvalue).length < 2 || (state?.players | team:'Blue' | keyvalue).length < 2"-->
+  <button matRipple class="button"
+          *ngIf="!state?.game || state?.game?.winner" (click)="gameStart()"
+          >
+    Start game
+  </button>
 
-    <button mat-flat-button (click)="scoreClear()">Clear score</button>
-  </div>
-</mat-toolbar>
+  <button matRipple class="button"
+          *ngIf="state?.game && !state?.game?.winner"
+          (click)="gameStop()">
+    Stop game
+  </button>
 
-<mat-card class="upperPanel">
-  <form [formGroup]="playerForm" (ngSubmit)="playerUpdate(playerForm.value)" class="upperPanel__form">
-    <mat-form-field appearance="outline">
-      <mat-label>Player name</mat-label>
-      <input #input
-             matInput
-             formControlName="name"
-             placeholder="Type your name"
-             required
-      />
-    </mat-form-field>
+  <button matRipple class="button" (click)="scoreClear()">
+    Clear score
+  </button>
+</div>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Player team</mat-label>
-      <mat-select formControlName="team">
-        <mat-option *ngFor="let team of teams" [value]="team">
-          {{ team }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+<div class="area">
+  <div class="board">
 
-    <button mat-flat-button type="submit" color="accent" [disabled]="state?.game && !state?.game?.winner">Save</button>
-  </form>
-
-  <div class="upperPanel__status">
-    <span class="upperPanel__status--span" *ngIf="state?.game?.current?.team as team">
+    <div class="info">
+      <span class="info__span" *ngIf="state?.game?.current?.team as team">
       <span>Current team</span>
       <div class="circle" [ngClass]="{'red': team ===  'Red', 'blue': team ===  'Blue'}">
         {{ state?.game?.current?.wordsNo || '?' }}
       </div>
     </span>
-  </div>
-</mat-card>
+    </div>
 
-<div class="area">
-  <div class="board">
-
-    <mat-card class="card" *ngIf="state?.game?.layers?.words as words">
-      <mat-card-content>
-        <div class="row" *ngFor="let row of words; let i = index">
-          <div class="tile" *ngFor="let tile of row; let j= index">
-            <cdn-tile
-              [value]="state?.game?.layers?.live[i][j]"
-              (click)="state?.game?.current?.wordsNo
-              && state?.game?.current.team === playerForm.get('team').value
-              && state?.game?.leaders?.red?.id !== clientId
-              && state?.game?.leaders?.blue?.id !== clientId
-              && moveNext(i, j)"
-            >
-              {{ tile }}
-            </cdn-tile>
-          </div>
-        </div>
-      </mat-card-content>
-    </mat-card>
+    <div class="live">
+      <cdn-layer-live
+        [state]="state"
+        [playerForm]="playerForm"
+        [clientId]="clientId"
+        (nextMove)="moveNext($event.i, $event.j)"
+      ></cdn-layer-live>
+    </div>
 
   </div>
 
   <div class="panel">
-    <mat-card class="card">
-      <mat-card-content>
-        <mat-list class="teams">
-          <div class="teams__col">
-            <div mat-subheader class="teams__col--name">Reds ({{ state?.score?.reds }} points)</div>
-            <mat-list-item *ngFor="let player of state?.players | team:'Red' | keyvalue">
-              <div mat-line [ngClass]="{'bold': player.key === state?.game?.leaders?.red?.id}">
-                {{ player.value.name }} ({{ player.value.leadNo}})
-              </div>
-            </mat-list-item>
-          </div>
-          <div class="teams__col">
-            <div mat-subheader class="teams__col--name">Blues ({{ state?.score?.blues }} points)</div>
-            <mat-list-item *ngFor="let player of state?.players | team:'Blue' | keyvalue ">
-              <div mat-line [ngClass]="{'bold': player.key === state?.game?.leaders?.blue?.id}">
-                {{ player.value.name }} ({{ player.value.leadNo}})
-              </div>
-            </mat-list-item>
-          </div>
-        </mat-list>
-      </mat-card-content>
-    </mat-card>
+    <cdn-teams
+      [state]="state"
+    ></cdn-teams>
 
-    <mat-card class="card"
-              *ngIf="state?.game && (state?.game?.leaders?.blue?.id == clientId || state?.game?.leaders?.red?.id === clientId)">
-      <mat-card-content class="gameBoardContent">
-        <div class="gameBoard" *ngIf="state?.game?.layers?.game as game">
-          <div class="gameBoard__row" *ngFor="let row of game">
-            <div class="gameBoard__tile" *ngFor="let tile of row">
-              <mat-card class="mat-card" [ngClass]="{
-                'gameBoard__tile--default': tile === -1,
-                'gameBoard__tile--red': tile === 0,
-                'gameBoard__tile--blue': tile === 1,
-                'gameBoard__tile--black': tile === 2
-                }">
-              </mat-card>
-            </div>
-          </div>
-        </div>
-
-        <div class="moves">
-          <mat-slider
-            #slider
-            min="1"
-            [max]="playerForm.get('team').value === 'Red' ? state?.game?.leaders?.red?.cardsLeft : state?.game?.leaders?.blue?.cardsLeft"
-            [thumbLabel]="true"
-            color="primary"
-            class="moves__slider"
-            [disabled]="state?.game?.current?.wordsNo"
-            [vertical]="true"
-          ></mat-slider>
-
-          <button mat-button
-                  (click)="movesAccept(slider.value)"
-                  [disabled]="state?.game?.current?.wordsNo || state?.game?.current?.team !== playerForm.get('team').value"
-          >Accept
-          </button>
-        </div>
-      </mat-card-content>
-    </mat-card>
+    <cdn-layer-game
+      *ngIf="state?.game && (state?.game?.leaders?.blue?.id == clientId || state?.game?.leaders?.red?.id === clientId)"
+      [state]="state"
+      [playerForm]="playerForm"
+      (movesAccept)="movesAccept($event)"
+    ></cdn-layer-game>
   </div>
 </div>

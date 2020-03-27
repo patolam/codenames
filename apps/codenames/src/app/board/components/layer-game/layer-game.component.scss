@@ -1,0 +1,71 @@
+@import "../../../../assets/colors";
+
+:host {
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    font-family: 'Baloo 2', cursive;
+    margin: 16px;
+
+    .layer {
+      display: flex;
+      flex-direction: column;
+      margin: 16px;
+
+      &__row {
+        display: flex;
+      }
+
+      &__tile {
+        margin: 4px 4px 0 0;
+        box-sizing: border-box;
+
+        width: 3vw;
+        height: 3vw;
+        padding: 0;
+
+        &--default {
+          background-color: $yellow;
+        }
+
+        &--red {
+          background-color: $coral;
+        }
+
+        &--blue {
+          background-color: $blue;
+        }
+
+        &--black {
+          background-color: $black;
+        }
+      }
+    }
+
+    .accept {
+      font-family: 'Baloo 2', cursive;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      width: 5em;
+      height: 5em;
+      padding: 8px;
+
+      border: 0;
+      background-color: $mustard;
+
+      color: $gelato;
+      font-size: 24px;
+      text-transform: uppercase;
+      cursor: pointer;
+
+      &[disabled] {
+        background-color: $tile;
+      }
+    }
+  }
+}

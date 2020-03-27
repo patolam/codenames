@@ -122,8 +122,8 @@ export class AppGateway
     const teamId: number = current.team === Team.Red ? 0 : 1;
 
     const points = {
-      reds: _.countBy(_.flatten(live), value => value === 0).true,
-      blues: _.countBy(_.flatten(live), value => value === 1).true
+      reds: _.countBy(_.flatten(live), value => value === 0).true || 0,
+      blues: _.countBy(_.flatten(live), value => value === 1).true || 0
     };
 
     let winner: Team = null;

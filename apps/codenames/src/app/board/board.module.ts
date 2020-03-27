@@ -1,49 +1,45 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BoardComponent } from './containers/board/board.component';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatGridListModule } from '@angular/material/grid-list';
-import { MatCardModule } from '@angular/material/card';
 import { TileComponent } from './components/tile/tile.component';
-import { MatListModule } from '@angular/material/list';
 import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
 import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
 import { environment } from '../../environments/environment';
 import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TeamPipe } from '../../../../shared/pipe/board.pipe';
-import { MatSliderModule } from '@angular/material/slider';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatBadgeModule } from '@angular/material/badge';
-import { MatChipsModule } from '@angular/material/chips';
 import { RouterModule } from '@angular/router';
 import { routes } from './board.routes';
+import { HeaderComponent } from './components/header/header.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatRippleModule } from '@angular/material/core';
+import { MatDialogModule } from '@angular/material/dialog';
+import { TeamsComponent } from './components/teams/teams.component';
+import { LayerGameComponent } from './components/layer-game/layer-game.component';
+import { LayerLiveComponent } from './components/layer-live/layer-live.component';
+import { DialogComponent } from './components/dialog/dialog.component';
+import { DialogMovesComponent } from './components/dialog-moves/dialog-moves.component';
+import { DialogPlayerComponent } from './components/dialog-player/dialog-player.component';
+import { DialogEndGameComponent } from './components/dialog-end-game/dialog-end-game.component';
 
 const config: SocketIoConfig = { url: environment.socket, options: {} };
 
 @NgModule({
-  declarations: [BoardComponent, TileComponent, TeamPipe],
+  declarations: [BoardComponent, TileComponent, TeamPipe, HeaderComponent, DialogPlayerComponent, TeamsComponent, LayerGameComponent, LayerLiveComponent, DialogComponent, DialogMovesComponent, DialogEndGameComponent],
   exports: [BoardComponent],
   imports: [
     CommonModule,
-    MatToolbarModule,
-    MatGridListModule,
-    MatCardModule,
-    MatListModule,
     MatInputModule,
-    MatButtonModule,
     SocketIoModule.forRoot(config),
     MatSelectModule,
     ReactiveFormsModule,
-    MatSliderModule,
-    MatSnackBarModule,
-    MatBadgeModule,
-    MatChipsModule,
     RouterModule.forChild(routes),
+    MatIconModule,
+    MatRippleModule,
+    MatDialogModule
   ],
-  providers: [
-    MatSnackBar,
-  ]
+  providers: []
 })
-export class BoardModule {}
+export class BoardModule {
+}
+

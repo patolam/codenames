@@ -3,8 +3,10 @@ import { Socket } from 'ngx-socket-io';
 import { Observable } from 'rxjs';
 import { BoardState, Player, Team } from '../../../../../../shared/model/state';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
+import { DialogPlayerComponent } from '../../components/dialog-player/dialog-player.component';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogEndGameComponent } from '../../components/dialog-end-game/dialog-end-game.component';
 
 interface Tile {
   id: number;
@@ -22,17 +24,14 @@ export class BoardComponent implements OnInit {
   boardId: number;
 
   state: BoardState;
-  teams = [Team.Red, Team.Blue];
 
   playerForm: FormGroup;
-
-  image: any;
 
   constructor(
     private socket: Socket,
     private formBuilder: FormBuilder,
-    private snackBar: MatSnackBar,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public dialog: MatDialog
   ) {
     route.params.subscribe(({ id }) => {
       this.boardId = id;
@@ -44,6 +43,8 @@ export class BoardComponent implements OnInit {
     this.socket.on('connect', () => {
       this.clientId = this.socket.ioSocket.id;
       this.socket.emit('returnState', { boardId: this.boardId });
+
+      this.openDialog();
     });
 
     this.playerForm = this.formBuilder.group({
@@ -61,14 +62,32 @@ export class BoardComponent implements OnInit {
       }
 
       if (this.state?.game?.winner) {
-        this.snackBar.open(
-          `Game over! The winner is: ${this.state.game.winner} team!`,
-          'Close',
-          {
-            duration: 10000
-          }
-        );
+        this.openDialogEndGame();
       }
+    });
+  }
+
+  openDialogEndGame(): void {
+    const dialogRef = this.dialog.open(DialogEndGameComponent, {
+      width: '400px',
+      panelClass: 'dialog',
+      data: {
+        state: this.state
+      }
+    });
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(DialogPlayerComponent, {
+      width: '300px',
+      panelClass: 'dialog',
+      data: {
+        playerForm: this.playerForm
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.playerUpdate(this.playerForm.value);
     });
   }
 

@@ -1,0 +1,14 @@
+<cdn-dialog header="And this is over!">
+  <div class="container">
+    <span class="info">The {{state?.game?.winner}} team won the game!</span>
+
+    <div class="button">
+      <button matRipple class="button__join"
+              [mat-dialog-close]="true"
+              type="submit"
+      >
+        I see, thanks
+      </button>
+    </div>
+  </div>
+</cdn-dialog>

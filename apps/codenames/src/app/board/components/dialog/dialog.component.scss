@@ -1,0 +1,25 @@
+@import "../../../../assets/colors";
+
+:host {
+  .dialog {
+    font-family: 'Baloo 2', cursive;
+
+    padding: 32px;
+    background-color: $blue;
+
+    .header {
+      display: inline-block;
+      padding: 4px 8px;
+      margin-bottom: 32px;
+
+      font-size: 20px;
+      text-transform: uppercase;
+
+      color: $gelato;
+      background-color: $violet;
+    }
+
+    .body {
+    }
+  }
+}

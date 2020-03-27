@@ -1,0 +1,17 @@
+<div class="layer" *ngIf="state?.game?.layers?.words as words">
+  <div class="layer__row" *ngFor="let row of words; let i = index">
+    <div class="layer__tile" *ngFor="let tile of row; let j= index">
+      <cdn-tile
+        [value]="state?.game?.layers?.live[i][j]"
+        (click)="state?.game?.current?.wordsNo
+              && state?.game?.current.team === playerForm.get('team').value
+              && state?.game?.leaders?.red?.id !== clientId
+              && state?.game?.leaders?.blue?.id !== clientId
+              && state?.game?.layers?.live[i][j] === -2
+              && moveNext(i, j)"
+      >
+        {{ tile }}
+      </cdn-tile>
+    </div>
+  </div>
+</div>

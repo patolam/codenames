@@ -1,0 +1,48 @@
+@import "../../../../assets/colors";
+
+:host {
+  .form {
+    .button {
+      display: flex;
+      justify-content: flex-end;
+
+      &__join {
+        border: 0;
+        background-color: $mustard;
+        padding: 4px 8px;
+        color: $gelato;
+
+        font-size: 20px;
+        font-family: 'Baloo 2', cursive;
+        text-transform: uppercase;
+
+        cursor: pointer;
+      }
+    }
+  }
+
+  mat-form-field {
+    width: 100%;
+    font-family: 'Baloo 2', cursive;
+  }
+
+  ::ng-deep {
+    .mat-form-field-appearance-outline .mat-form-field-outline {
+      color: $black;
+      opacity: 1;
+      border-radius: 0;
+    }
+
+    .mat-form-field-outline-start, .mat-form-field-outline-end {
+      border-radius: 0;
+    }
+
+    .mat-form-field {
+      caret-color: $black;
+    }
+
+    .mat-form-field-invalid {
+      caret-color: $coral;
+    }
+  }
+}
