@@ -364,7 +364,7 @@ export const dictionary: string[] = [
   'rzęsa',
   'lot',
   'waga',
-  'ognień',
+  'ogień',
   'milioner',
   'pudło',
   'funt',

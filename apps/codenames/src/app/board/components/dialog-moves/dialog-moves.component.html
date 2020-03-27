@@ -1,0 +1,10 @@
+<cdn-dialog header="How many words?">
+  <div class="container">
+    <button matRipple
+            *ngFor="let item of items"
+            [mat-dialog-close]="item"
+            class="button">
+      {{item}}
+    </button>
+  </div>
+</cdn-dialog>

@@ -14,7 +14,8 @@ export class StateService {
     boards: {}
   };
 
-  constructor(private appService: AppService) {}
+  constructor(private appService: AppService) {
+  }
 
   returnState(data: { boardId: string }): BoardState {
     const { boardId } = data;
@@ -50,8 +51,15 @@ export class StateService {
     const { boardId } = data;
     const state = this.appState.boards[boardId];
 
+    const { reds, blues } = state.score;
+
     state.game = game;
     state.players = players;
+    state.score = {
+      ...state.score,
+      reds: reds === 3 ? 0 : reds,
+      blues: blues === 3 ? 0 : blues
+    };
 
     return state;
   }
@@ -100,7 +108,7 @@ export class StateService {
       live,
       current,
       points,
-      winner,
+      winner
     } = result;
 
     state.game = {
