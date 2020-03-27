@@ -5,9 +5,9 @@
 ></cdn-header>
 
 <div class="toolbar">
-<!--  [disabled]="(state?.players | team:'Red' | keyvalue).length < 2 || (state?.players | team:'Blue' | keyvalue).length < 2"-->
   <button matRipple class="button"
           *ngIf="!state?.game || state?.game?.winner" (click)="gameStart()"
+          [disabled]="(state?.players | team:'Red' | keyvalue).length < 2 || (state?.players | team:'Blue' | keyvalue).length < 2"
           >
     Start game
   </button>
