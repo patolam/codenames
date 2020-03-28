@@ -30,3 +30,19 @@ body {
     overflow: hidden;
   }
 }
+
+/* scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background-color: $tile;
+}
+::-webkit-scrollbar-thumb {
+  background: $black;
+
+}
+::-webkit-scrollbar-thumb:hover {
+  background: $black;
+}
