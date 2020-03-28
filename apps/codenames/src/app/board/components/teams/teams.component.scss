@@ -41,6 +41,7 @@
 
     &__body {
       display: flex;
+      overflow-y: auto;
 
       margin-top: 16px;
       height: 200px;
@@ -54,7 +55,7 @@
           .player {
             display: flex;
             align-items: center;
-            margin: 8px;
+            margin: 4px 8px;
 
             .leader {
               padding: 2px 4px;

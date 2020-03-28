@@ -7,7 +7,7 @@ html, body {
 
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: 'Baloo 2', cursive, "Helvetica Neue", sans-serif;
   overflow: hidden;
 
   &::before {
@@ -29,4 +29,20 @@ body {
     border-radius: 0;
     overflow: hidden;
   }
+}
+
+/* scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background-color: $tile;
+}
+::-webkit-scrollbar-thumb {
+  background: $black;
+
+}
+::-webkit-scrollbar-thumb:hover {
+  background: $black;
 }
