@@ -29,6 +29,7 @@
       border: 0;
       padding: 2px 8px;
       cursor: pointer;
+      outline: none;
 
       &[disabled] {
         background-color: $tile;

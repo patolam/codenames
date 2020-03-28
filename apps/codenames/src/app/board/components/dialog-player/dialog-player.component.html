@@ -23,7 +23,7 @@
       <div class="button">
         <button matRipple class="button__join"
                 [mat-dialog-close]="data.playerForm"
-                [disabled]="state?.game && !state?.game?.winner"
+                [disabled]="(state?.game && !state?.game?.winner) || playerForm.invalid"
                 type="submit"
         >
           Join the game
