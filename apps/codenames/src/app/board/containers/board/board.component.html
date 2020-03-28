@@ -8,7 +8,7 @@
   <button matRipple class="button"
           *ngIf="!state?.game || state?.game?.winner" (click)="gameStart()"
           [disabled]="(state?.players | team:'Red' | keyvalue).length < 2 || (state?.players | team:'Blue' | keyvalue).length < 2"
-          >
+  >
     Start game
   </button>
 
@@ -26,13 +26,20 @@
 <div class="area">
   <div class="board">
 
-    <div class="info">
-      <span class="info__span" *ngIf="state?.game?.current?.team as team">
-      <span>Current team</span>
-      <div class="circle" [ngClass]="{'red': team ===  'Red', 'blue': team ===  'Blue'}">
-        {{ state?.game?.current?.wordsNo || '?' }}
-      </div>
-    </span>
+    <div class="info" *ngIf="state?.game?.current?.team as team">
+      <span class="info__span">
+        <span>Next moves</span>
+        <div class="circle" [ngClass]="{'red': team ===  'Red', 'blue': team ===  'Blue'}">
+          {{ state?.game?.current?.wordsNo || '?' }}
+        </div>
+      </span>
+
+      <span class="info__span" *ngIf="playerForm.get('team').value as playerTeam">
+        <span>Team remaining words</span>
+        <div class="circle" [ngClass]="{'red': playerTeam ===  'Red', 'blue': playerTeam ===  'Blue'}">
+          {{ playerTeam === 'Red' ? state?.game?.leaders?.red?.cardsLeft : state?.game?.leaders?.blue?.cardsLeft }}
+        </div>
+      </span>
     </div>
 
     <div class="live">

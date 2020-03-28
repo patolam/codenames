@@ -51,6 +51,9 @@
       width: 100%;
 
       .info {
+        display: flex;
+        justify-content: space-between;
+
         width: 100%;
         font-family: 'Baloo 2', cursive;
         font-size: 22px;
