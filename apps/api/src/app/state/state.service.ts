@@ -182,6 +182,16 @@ export class StateService {
     return { boardId, state };
   }
 
+  getRandId(): { id: string } {
+    let id;
+
+    do {
+      id = Math.random().toString(36).slice(2);
+    } while (this.appState.boards[id]);
+
+    return {id};
+  }
+
   private createInitialState(): BoardState {
     return {
       players: {},

@@ -10,5 +10,5 @@ export const routes: Routes = [
           import('./board/board.module').then(m => m.BoardModule)
       }
     ]
-  }
+  },
 ];
