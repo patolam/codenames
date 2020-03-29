@@ -2,13 +2,15 @@
   <div class="layer__row" *ngFor="let row of words; let i = index">
     <div class="layer__tile" *ngFor="let tile of row; let j= index">
       <cdn-tile
-        [value]="state?.game?.layers?.live[i][j]"
-        (click)="state?.game?.current?.wordsNo
-              && state?.game?.current.team === playerForm.get('team').value
-              && state?.game?.leaders?.red?.id !== clientId
-              && state?.game?.leaders?.blue?.id !== clientId
-              && state?.game?.layers?.live[i][j] === -2
-              && moveNext(i, j)"
+        *ngIf="state?.game as game"
+        [value]="game?.layers?.live[i][j]"
+        [accepted]="{value: getAcceptedValue(i, j), max: (state?.players | team:game?.current?.team | keyvalue).length - 1}"
+        (click)="game?.current?.wordsNo
+              && game?.current.team === playerForm.get('team').value
+              && game?.leaders?.red?.id !== clientId
+              && game?.leaders?.blue?.id !== clientId
+              && game?.layers?.live[i][j] === -2
+              && acceptSwitch(i, j)"
       >
         {{ tile }}
       </cdn-tile>

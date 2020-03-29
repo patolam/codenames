@@ -1,11 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import {
-  AppState,
-  BoardState,
-  Game,
-  Player,
-  Team
-} from '../../../../shared/model/state';
+import { AppState, BoardState, Game, Player, Team } from '../../../../shared/model/state';
 import { AppService } from '../app.service';
 
 @Injectable()
@@ -100,6 +94,18 @@ export class StateService {
     return state;
   }
 
+  acceptSwitch(data: { boardId: string; accept: { [clientId: string]: [number, number] } }): BoardState {
+    const { boardId, accept } = data;
+    const state = this.appState.boards[boardId];
+
+    state.game = {
+      ...state.game,
+      accept,
+    };
+
+    return state;
+  }
+
   moveNext(data: { boardId: string; result }): BoardState {
     const { boardId, result } = data;
     const state = this.appState.boards[boardId];
@@ -108,14 +114,16 @@ export class StateService {
       live,
       current,
       points,
-      winner
+      winner,
+      accept
     } = result;
 
     state.game = {
       ...state.game,
+      accept,
       layers: {
         ...state.game.layers,
-        live
+        live,
       },
       current,
       winner,
@@ -131,6 +139,7 @@ export class StateService {
         }
       }
     };
+
     state.score = {
       ...state.score,
       reds: winner === Team.Red ? ++state.score.reds : state.score.reds,
@@ -189,7 +198,7 @@ export class StateService {
       id = Math.random().toString(36).slice(2);
     } while (this.appState.boards[id]);
 
-    return {id};
+    return { id };
   }
 
   private createInitialState(): BoardState {

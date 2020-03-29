@@ -6,14 +6,7 @@ import { dictionary } from '../assets/dictionary';
 @Injectable()
 export class AppService {
   getLiveBoard(): number[][] {
-    const board: number[] = [-2, -2, -2, -2, -2];
-    const result: number[][] = [];
-
-    for (let i = 0; i < 5; i++) {
-      result.push([...board]);
-    }
-
-    return result;
+    return this.simpleBoardFactory(-2);
   }
 
   getWordsBoard(): string[][] {
@@ -43,6 +36,22 @@ export class AppService {
 
     return _.sample(teamIds.filter((key: string) => players[key].leadNo === minLead));
   }
+
+  private simpleBoardFactory = (value: any) => {
+    const board: any[] = [];
+
+    for (let i = 0; i < 5; i++) {
+      board.push(value);
+    }
+
+    const result: any[][] = [];
+
+    for (let i = 0; i < 5; i++) {
+      result.push([...board]);
+    }
+
+    return result;
+  };
 
   private arrayToBoard(array: any[]): any[][] {
     const result: number[][] = [];

@@ -123,8 +123,8 @@ export class BoardComponent implements OnInit {
     });
   }
 
-  moveNext(col: number, row: number): void {
-    this.socket.emit('moveNext', {
+  acceptSwitch(col: number, row: number): void {
+    this.socket.emit('acceptSwitch', {
       boardId: this.boardId,
       col,
       row

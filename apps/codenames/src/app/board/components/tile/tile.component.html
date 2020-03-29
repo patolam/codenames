@@ -7,5 +7,8 @@
     'tile--black': value === 2
   }"
 >
+  <div class="accepted" *ngIf="accepted.value > 0 && accepted.max > 1 && accepted.value < accepted.max">
+    <span>{{accepted.value}}</span> / <span>{{accepted.max}}</span>
+  </div>
   <ng-content></ng-content>
 </div>

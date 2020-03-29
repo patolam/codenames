@@ -26,9 +26,12 @@ export interface Game {
     wordsNo?: number;
   };
   layers: {
-    live: any;
     words: string[][];
     game: number[][];
+    live: number[][];
+  };
+  accept: {
+    [clientId: string]: [number, number]
   };
   winner: Team;
 }

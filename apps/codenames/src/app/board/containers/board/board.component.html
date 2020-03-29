@@ -28,16 +28,20 @@
 
     <div class="info" *ngIf="state?.game?.current?.team as team">
       <span class="info__span">
-        <span>Next moves</span>
+        <span>Next move</span>
         <div class="circle" [ngClass]="{'red': team ===  'Red', 'blue': team ===  'Blue'}">
           {{ state?.game?.current?.wordsNo || '?' }}
         </div>
       </span>
 
       <span class="info__span" *ngIf="playerForm.get('team').value as playerTeam">
-        <span>Team remaining words</span>
-        <div class="circle" [ngClass]="{'red': playerTeam ===  'Red', 'blue': playerTeam ===  'Blue'}">
-          {{ playerTeam === 'Red' ? state?.game?.leaders?.red?.cardsLeft : state?.game?.leaders?.blue?.cardsLeft }}
+        <span>Remaining words</span>
+        <div class="circle" [ngClass]="'red'">
+          {{ state?.game?.leaders?.red?.cardsLeft }}
+        </div>
+        <span class="circle__span">vs.</span>
+        <div class="circle" [ngClass]="'blue'">
+          {{ state?.game?.leaders?.blue?.cardsLeft }}
         </div>
       </span>
     </div>
@@ -47,7 +51,7 @@
         [state]="state"
         [playerForm]="playerForm"
         [clientId]="clientId"
-        (nextMove)="moveNext($event.i, $event.j)"
+        (switchAccept)="acceptSwitch($event.i, $event.j)"
       ></cdn-layer-live>
     </div>
 

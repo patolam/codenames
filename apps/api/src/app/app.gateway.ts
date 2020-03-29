@@ -80,10 +80,11 @@ export class AppGateway
         wordsNo: null
       },
       layers: {
-        live: this.appService.getLiveBoard(),
         words: this.appService.getWordsBoard(),
-        game: this.appService.getGameBoard(nextTeam)
+        game: this.appService.getGameBoard(nextTeam),
+        live: this.appService.getLiveBoard()
       },
+      accept: {},
       winner: null
     };
 
@@ -108,10 +109,35 @@ export class AppGateway
     this.server.emit(data.boardId, this.stateService.movesAccept(data));
   }
 
-  @SubscribeMessage('moveNext')
+  @SubscribeMessage('acceptSwitch')
+  acceptSwitch(client: Socket, data: { boardId: string; col: number; row: number }): void {
+    const { boardId, col, row } = data;
+    const state = this.boards[boardId];
+
+    const accept = { ...state.game.accept };
+    const teamPlayers = _.countBy(Object.values(state.players), item => item.team === state.players[client.id].team).true;
+
+    if (!accept[client.id] || (accept[client.id][0] !== col || accept[client.id][1] !== row)) {
+      accept[client.id] = [col, row];
+    } else {
+      delete accept[client.id];
+    }
+
+    const acceptedCount: number = Object.values(accept)
+      .filter((coords: [number, number]) => coords[0] === col && coords[1] === row).length;
+
+    if (acceptedCount !== teamPlayers - 1) {
+      this.server.emit(boardId, this.stateService.acceptSwitch({ boardId, accept }));
+    } else {
+      this.moveNext(client, data);
+    }
+  }
+
   moveNext(client: Socket, data: { boardId: string; col: number; row: number }): void {
     const { boardId, col, row } = data;
     const state = this.boards[boardId];
+
+    const accept = {};
 
     const game = state.game.layers.game;
     const live = [...state.game.layers.live];
@@ -161,7 +187,8 @@ export class AppGateway
       live,
       current,
       points,
-      winner
+      winner,
+      accept
     };
 
     this.server.emit(boardId, this.stateService.moveNext({ boardId, result }));

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'cdn-tile',
@@ -7,6 +7,10 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class TileComponent implements OnInit {
   @Input() value: number;
+  @Input() accepted: {
+    value: number;
+    max: number;
+  };
 
   constructor() { }
 

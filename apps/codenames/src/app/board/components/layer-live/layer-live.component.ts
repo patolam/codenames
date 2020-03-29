@@ -12,7 +12,10 @@ export class LayerLiveComponent implements OnInit {
   @Input() playerForm: FormGroup;
   @Input() clientId: string;
 
-  @Output() nextMove: EventEmitter<{i: number, j: number}> = new EventEmitter();
+  @Output() switchAccept: EventEmitter<{
+    i: number,
+    j: number
+  }> = new EventEmitter();
 
   constructor() {
   }
@@ -20,7 +23,12 @@ export class LayerLiveComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  moveNext(i: number, j: number) {
-    this.nextMove.emit({i,  j});
+  acceptSwitch(i: number, j: number): void {
+    this.switchAccept.emit({ i, j });
   };
+
+  getAcceptedValue(col: number, row: number): number {
+    return Object.values(this.state?.game?.accept)
+      .filter((coords: [number, number]) => coords[0] === col && coords[1] === row).length;
+  }
 }
