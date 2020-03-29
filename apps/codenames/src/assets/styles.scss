@@ -17,7 +17,7 @@ body {
     top: 0;
     left: 25%;
     z-index: 0;
-    background: #f1f1f1 0 0 repeat;
+    background: $tint;
     transform: rotate(120deg);
   }
 }
@@ -36,7 +36,7 @@ body {
   height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background-color: $tile;
+  background-color: $gray;
 }
 ::-webkit-scrollbar-thumb {
   background: $black;
