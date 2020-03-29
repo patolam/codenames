@@ -247,7 +247,18 @@ export class AppGateway
       accept
     };
 
-    this.server.emit(boardId, this.stateService.moveNext({ boardId, result }));
+    const response = this.stateService.moveNext({ boardId, result });
+
+    this.server.emit(
+      boardId,
+      {
+        ...response,
+        event: {
+          ...response.event,
+          endGame: true
+        }
+      }
+    );
   }
 
   afterInit(server: Server) {

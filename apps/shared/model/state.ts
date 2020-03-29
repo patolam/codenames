@@ -49,6 +49,9 @@ export interface BoardState {
   score: {
     reds: number;
     blues: number;
+  },
+  event?: {
+    endGame?: boolean
   }
 }
 
