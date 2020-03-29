@@ -255,7 +255,7 @@ export class AppGateway
         ...response,
         event: {
           ...response.event,
-          endGame: true
+          endGame: !!winner
         }
       }
     );

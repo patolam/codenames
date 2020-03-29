@@ -61,7 +61,7 @@ export class BoardComponent implements OnInit {
         this.playerForm.enable();
       }
 
-      if (this.state?.event?.endGame) {
+      if (this.state?.event?.endGame === true) {
         this.openDialogEndGame();
       }
     });
