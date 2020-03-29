@@ -33,8 +33,8 @@ export class LayerGameComponent implements OnInit {
       }
     });
 
-    dialogRef.afterClosed().subscribe((value: number) => {
-      this.movesAccept.emit(value);
+    dialogRef.afterClosed().subscribe((move) => {
+      this.movesAccept.emit(move);
     });
   }
 

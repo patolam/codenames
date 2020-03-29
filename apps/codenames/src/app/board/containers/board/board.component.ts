@@ -116,10 +116,10 @@ export class BoardComponent implements OnInit {
     });
   }
 
-  movesAccept(value: number) {
+  movesAccept(move: { wordsNo: number; word: string }) {
     this.socket.emit('movesAccept', {
       boardId: this.boardId,
-      value
+      move
     });
   }
 

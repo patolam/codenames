@@ -1,8 +1,17 @@
-<cdn-dialog header="How many words?">
+<cdn-dialog header="What's your keyword?">
   <div class="container">
+    <mat-form-field appearance="outline">
+      <mat-label>Your keyword</mat-label>
+      <input #word
+             matInput
+             placeholder="Type the keyword"
+             required
+      />
+    </mat-form-field>
+
     <button matRipple
             *ngFor="let item of items"
-            [mat-dialog-close]="item"
+            [mat-dialog-close]="{ wordsNo: item, word: word.value }"
             class="button">
       {{item}}
     </button>

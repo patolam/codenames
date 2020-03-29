@@ -96,7 +96,8 @@ export class AppGateway
         },
         current: {
           team: nextTeam,
-          wordsNo: null
+          wordsNo: null,
+          word: null
         },
         layers: {
           words: this.appService.getWordsBoard(),
@@ -161,7 +162,10 @@ export class AppGateway
   }
 
   @SubscribeMessage('movesAccept')
-  movesAccept(client: Socket, data: { boardId: string; value: number }): void {
+  movesAccept(client: Socket, data: {
+    boardId: string;
+    move: { wordsNo: number; word: string }
+  }): void {
     this.server.emit(data.boardId, this.stateService.movesAccept(data));
   }
 
@@ -221,13 +225,15 @@ export class AppGateway
     if (winner) {
       current = {
         team: null,
-        wordsNo: null
+        wordsNo: null,
+        word: null,
       };
       /* If there was an opponents' tile */
     } else if (game[col][row] !== teamId) {
       current = {
         team: teamId === 0 ? Team.Blue : Team.Red,
-        wordsNo: null
+        wordsNo: null,
+        word: null,
       };
       /* If there was your tile and it is not the last move */
     } else if (game[col][row] === teamId && current.wordsNo > 1) {
@@ -235,7 +241,8 @@ export class AppGateway
     } else if (game[col][row] === teamId && current.wordsNo === 1) {
       current = {
         team: teamId === 0 ? Team.Blue : Team.Red,
-        wordsNo: null
+        wordsNo: null,
+        word: null,
       };
     }
 

@@ -71,10 +71,11 @@
           justify-content: center;
 
           margin-left: 16px;
-          width: 40px;
+          min-width: 20px;
           height: 40px;
+          padding: 0 10px;
 
-          font-size: 32px;
+          font-size: 28px;
           color: $gelato;
 
           &.red {

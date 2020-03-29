@@ -26,15 +26,16 @@
 <div class="area">
   <div class="board">
 
-    <div class="info" *ngIf="state?.game?.current?.team as team">
+    <div class="info" *ngIf="state?.game?.current as current">
       <span class="info__span">
-        <span>Next move</span>
-        <div class="circle" [ngClass]="{'red': team ===  'Red', 'blue': team ===  'Blue'}">
-          {{ state?.game?.current?.wordsNo || '?' }}
+        <span>{{ current?.word ? 'Keyword' : 'Next team' }}</span>
+        <div class="circle" [ngClass]="{'red': current?.team ===  'Red', 'blue': current?.team ===  'Blue'}">
+          <span *ngIf="!current?.word">{{ current?.team + 's' }}</span>
+          <span *ngIf="current?.word">{{ current?.word }} {{ current?.wordsNo }}</span>
         </div>
       </span>
 
-      <span class="info__span" *ngIf="playerForm.get('team').value as playerTeam">
+      <span class="info__span" *ngIf="playerForm.get('team').value">
         <span>Remaining words</span>
         <div class="circle" [ngClass]="'red'">
           {{ state?.game?.leaders?.red?.cardsLeft }}

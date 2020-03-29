@@ -108,15 +108,19 @@ export class StateService {
     return state;
   }
 
-  movesAccept(data: { boardId: string; value: number }): BoardState {
-    const { boardId, value } = data;
+  movesAccept(data: {
+    boardId: string;
+    move: { wordsNo: number; word: string }
+  }): BoardState {
+    const { boardId, move } = data;
     const state = this.appState.boards[boardId];
 
     state.game = {
       ...state.game,
       current: {
         ...state.game.current,
-        wordsNo: value
+        wordsNo: move.wordsNo,
+        word: move.word
       }
     };
 

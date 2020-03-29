@@ -29,6 +29,7 @@ export interface Game {
   current: {
     team: Team;
     wordsNo?: number;
+    word: string;
   };
   layers: {
     words: string[][];
