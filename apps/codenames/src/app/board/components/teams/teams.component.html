@@ -23,14 +23,20 @@
     <div class="body__reds">
       <div class="player" *ngFor="let player of state?.players | team:'Red' | keyvalue">
         <span>{{ player.value.name }}</span>
-        <div class="leader" *ngIf="player.key === state?.game?.leaders?.red?.id">Leader</div>
+        <div class="flag" *ngIf="player.key === state?.game?.leaders?.red?.id">Leader</div>
+        <div class="flag" *ngIf="player.value.requests.start">Ready</div>
+        <div class="flag" *ngIf="player.value.requests.stop">Stop</div>
+        <div class="flag" *ngIf="player.value.requests.clear">Clear</div>
       </div>
     </div>
 
     <div class="body__blues">
       <div class="player" *ngFor="let player of state?.players | team:'Blue' | keyvalue">
         <span>{{ player.value.name }}</span>
-        <div class="leader" *ngIf="player.key === state?.game?.leaders?.blue?.id">Leader</div>
+        <div class="flag" *ngIf="player.key === state?.game?.leaders?.blue?.id">Leader</div>
+        <div class="flag" *ngIf="player.value.requests.start">Ready</div>
+        <div class="flag" *ngIf="player.value.requests.stop">Stop</div>
+        <div class="flag" *ngIf="player.value.requests.clear">Clear</div>
       </div>
     </div>
   </div>
