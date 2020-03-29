@@ -28,7 +28,7 @@ export class LayerLiveComponent implements OnInit {
   };
 
   getAcceptedValue(col: number, row: number): number {
-    return Object.values(this.state?.game?.accept)
+    return Object.values(this.state?.game?.accept || {})
       .filter((coords: [number, number]) => coords[0] === col && coords[1] === row).length;
   }
 }
