@@ -29,7 +29,10 @@ export class StateService {
     const state = this.appState.boards[boardId];
 
     if (!state.players[clientId]) {
-      state.players[clientId] = { leadNo: 0 };
+      state.players[clientId] = {
+        leadNo: 0,
+        requests: {}
+      };
     }
 
     state.players[clientId] = {
@@ -41,14 +44,32 @@ export class StateService {
     return state;
   }
 
+  updateRequest(clientId: string, data: { boardId: string; request: string }): BoardState {
+    const { boardId, request } = data;
+    const state = this.appState.boards[boardId];
+
+    const requests = { ...state.players[clientId].requests };
+    requests[request] = true;
+
+    state.players[clientId] = {
+      ...state.players[clientId],
+      requests
+    };
+
+    return state;
+  }
+
   gameStart(game: Game, players: any, data: { boardId: string }): BoardState {
     const { boardId } = data;
     const state = this.appState.boards[boardId];
 
     const { reds, blues } = state.score;
 
+    const players1 = { ...players };
+    Object.values(players1).forEach((player: Player) => player.requests = {});
+
     state.game = game;
-    state.players = players;
+    state.players = players1;
     state.score = {
       ...state.score,
       reds: reds === 3 ? 0 : reds,
@@ -62,6 +83,10 @@ export class StateService {
     const { boardId } = data;
     const state = this.appState.boards[boardId];
 
+    const players = { ...state.players };
+    Object.values(players).forEach((player: Player) => player.requests = {});
+
+    state.players = players;
     state.game = null;
 
     return state;
@@ -71,6 +96,10 @@ export class StateService {
     const { boardId } = data;
     const state = this.appState.boards[boardId];
 
+    const players = { ...state.players };
+    Object.values(players).forEach((player: Player) => player.requests = {});
+
+    state.players = players;
     state.score = {
       reds: 0,
       blues: 0
@@ -100,7 +129,7 @@ export class StateService {
 
     state.game = {
       ...state.game,
-      accept,
+      accept
     };
 
     return state;
@@ -123,7 +152,7 @@ export class StateService {
       accept,
       layers: {
         ...state.game.layers,
-        live,
+        live
       },
       current,
       winner,

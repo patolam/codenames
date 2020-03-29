@@ -48,60 +48,116 @@ export class AppGateway
   @SubscribeMessage('gameStart')
   gameStart(client: Socket, data: { boardId: string }): void {
     const players = { ...this.boards[data.boardId].players };
+    const playersValues: Player[] = Object.values(players);
 
-    const redId: string = this.appService.getNextLeader(players, Team.Red);
-    const blueId: string = this.appService.getNextLeader(players, Team.Blue);
-
-    if (redId) {
-      players[redId].leadNo++;
+    if (!players[client.id].requests.start) {
+      players[client.id].requests.start = true;
     }
 
-    if (blueId) {
-      players[blueId].leadNo++;
+    const requestedNo = playersValues.filter((player: Player) => player.requests?.start).length;
+
+    if (requestedNo <= playersValues.length) {
+      this.server.emit(
+        data.boardId,
+        this.stateService.updateRequest(client.id, { boardId: data.boardId, request: 'start' })
+      );
     }
 
-    const nextTeam: Team =
-      blueId && redId ? _.sample(Team) : redId ? Team.Red : Team.Blue;
+    if (
+      requestedNo === playersValues.length &&
+      playersValues.filter((value: Player) => value.team === Team.Red).length >= 2 &&
+      playersValues.filter((value: Player) => value.team === Team.Blue).length >= 2
+    ) {
+      const redId: string = this.appService.getNextLeader(players, Team.Red);
+      const blueId: string = this.appService.getNextLeader(players, Team.Blue);
 
-    const game: Game = {
-      startTeam: nextTeam,
-      leaders: {
-        red: {
-          id: redId,
-          cardsLeft: nextTeam === Team.Red ? 9 : 8
+      if (redId) {
+        players[redId].leadNo++;
+      }
+
+      if (blueId) {
+        players[blueId].leadNo++;
+      }
+
+      const nextTeam: Team =
+        blueId && redId ? _.sample(Team) : redId ? Team.Red : Team.Blue;
+
+      const game: Game = {
+        startTeam: nextTeam,
+        leaders: {
+          red: {
+            id: redId,
+            cardsLeft: nextTeam === Team.Red ? 9 : 8
+          },
+          blue: {
+            id: blueId,
+            cardsLeft: nextTeam === Team.Blue ? 9 : 8
+          }
         },
-        blue: {
-          id: blueId,
-          cardsLeft: nextTeam === Team.Blue ? 9 : 8
-        }
-      },
-      current: {
-        team: nextTeam,
-        wordsNo: null
-      },
-      layers: {
-        words: this.appService.getWordsBoard(),
-        game: this.appService.getGameBoard(nextTeam),
-        live: this.appService.getLiveBoard()
-      },
-      accept: {},
-      winner: null
-    };
+        current: {
+          team: nextTeam,
+          wordsNo: null
+        },
+        layers: {
+          words: this.appService.getWordsBoard(),
+          game: this.appService.getGameBoard(nextTeam),
+          live: this.appService.getLiveBoard()
+        },
+        accept: {},
+        winner: null
+      };
 
-    this.server.emit(
-      data.boardId,
-      this.stateService.gameStart(game, players, data)
-    );
+      this.server.emit(
+        data.boardId,
+        this.stateService.gameStart(game, players, data)
+      );
+    }
   }
 
   @SubscribeMessage('gameStop')
   gameStop(client: Socket, data: { boardId: string }): void {
-    this.server.emit(data.boardId, this.stateService.gameStop(data));
+    const players = { ...this.boards[data.boardId].players };
+    const playersValues: Player[] = Object.values(players);
+
+    if (!players[client.id].requests.stop) {
+      players[client.id].requests.stop = true;
+    }
+
+    const requestedNo = playersValues.filter((player: Player) => player.requests?.stop).length;
+
+    if (requestedNo <= playersValues.length) {
+      this.server.emit(
+        data.boardId,
+        this.stateService.updateRequest(client.id, { boardId: data.boardId, request: 'stop' })
+      );
+    }
+
+    if (requestedNo === playersValues.length) {
+      this.server.emit(data.boardId, this.stateService.gameStop(data));
+    }
   }
 
   @SubscribeMessage('scoreClear')
   scoreClear(client: Socket, data: { boardId: string }): void {
-    this.server.emit(data.boardId, this.stateService.scoreClear(data));
+    const players = { ...this.boards[data.boardId].players };
+    const playersValues: Player[] = Object.values(players);
+
+    if (!players[client.id].requests.clear) {
+      players[client.id].requests.clear = true;
+    }
+
+    const requestedNo = playersValues.filter((player: Player) => player.requests?.clear).length;
+
+    if (requestedNo <= playersValues.length) {
+      this.server.emit(
+        data.boardId,
+        this.stateService.updateRequest(client.id, { boardId: data.boardId, request: 'clear' })
+      );
+    }
+
+    if (requestedNo === playersValues.length) {
+      this.server.emit(data.boardId, this.stateService.scoreClear(data));
+    }
   }
 
   @SubscribeMessage('movesAccept')

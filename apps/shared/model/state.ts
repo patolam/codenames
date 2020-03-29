@@ -7,6 +7,11 @@ export interface Player {
   name?: string;
   team?: Team;
   leadNo?: number;
+  requests: {
+    start?: boolean;
+    stop?: boolean;
+    clear?: boolean;
+  }
 }
 
 export interface Game {
@@ -38,7 +43,7 @@ export interface Game {
 
 export interface BoardState {
   players: {
-    [key: string]: Player,
+    [clientId: string]: Player,
   };
   game: Game;
   score: {

@@ -7,19 +7,19 @@
 <div class="toolbar">
   <button matRipple class="button"
           *ngIf="!state?.game || state?.game?.winner" (click)="gameStart()"
-          [disabled]="(state?.players | team:'Red' | keyvalue).length < 2 || (state?.players | team:'Blue' | keyvalue).length < 2"
-  >
-    Start game
+          [disabled]="state?.players[clientId]?.requests?.start === true"
+  >Start game
   </button>
 
   <button matRipple class="button"
-          *ngIf="state?.game && !state?.game?.winner"
-          (click)="gameStop()">
-    Stop game
+          *ngIf="state?.game && !state?.game?.winner" (click)="gameStop()"
+          [disabled]="state?.players[clientId]?.requests?.stop === true"
+  >Stop game
   </button>
 
-  <button matRipple class="button" (click)="scoreClear()">
-    Clear score
+  <button matRipple class="button" (click)="scoreClear()"
+          [disabled]="state?.players[clientId]?.requests?.clear === true"
+  >Clear score
   </button>
 </div>
 

@@ -54,6 +54,7 @@ export class BoardComponent implements OnInit {
 
     this.state$.subscribe((state: BoardState) => {
       this.state = state;
+      console.log(state);
 
       if (this.state?.game && !this.state?.game.winner) {
         this.playerForm.disable();
