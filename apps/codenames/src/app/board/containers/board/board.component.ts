@@ -83,7 +83,8 @@ export class BoardComponent implements OnInit {
       panelClass: 'dialog',
       data: {
         playerForm: this.playerForm
-      }
+      },
+      disableClose: true
     });
 
     dialogRef.afterClosed().subscribe(() => {
