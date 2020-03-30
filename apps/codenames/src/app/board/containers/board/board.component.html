@@ -31,7 +31,7 @@
         <span>{{ current?.word ? 'Keyword' : 'Next team' }}</span>
         <div class="circle" [ngClass]="{'red': current?.team ===  'Red', 'blue': current?.team ===  'Blue'}">
           <span *ngIf="!current?.word">{{ current?.team + 's' }}</span>
-          <span *ngIf="current?.word">{{ current?.word }} {{ current?.wordsNo }}</span>
+          <span *ngIf="current?.word">{{ current?.word }} # {{ current?.wordsNo }}</span>
         </div>
       </span>
 
