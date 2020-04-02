@@ -54,6 +54,7 @@
     "ngx-socket-io": "^3.0.1",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^6.5.4",
+    "simple-node-logger": "^18.12.24",
     "zone.js": "^0.10.2"
   },
   "devDependencies": {

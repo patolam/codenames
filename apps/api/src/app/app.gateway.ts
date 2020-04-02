@@ -7,26 +7,35 @@ import {
   WebSocketServer
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
-import { Logger } from '@nestjs/common';
 import { BoardState, Game, Player, Team } from '../../../shared/model/state';
 import * as _ from 'lodash';
 import { AppService } from './app.service';
 import { StateService } from './state/state.service';
+import * as SimpleNodeLogger from 'simple-node-logger';
 
 @WebSocketGateway(90)
 export class AppGateway
   implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer() server: Server;
 
-  private logger: Logger = new Logger('AppGateway');
-
   private readonly boards: { [key: string]: BoardState };
+
+  private log;
 
   constructor(
     private appService: AppService,
     private stateService: StateService
   ) {
     this.boards = stateService.appState.boards;
+
+    const opts = {
+      errorEventName: 'error',
+      logDirectory: 'logs',
+      fileNamePattern: 'log-<DATE>.log',
+      dateFormat: 'YYYY-MM-DD'
+    };
+
+    this.log = SimpleNodeLogger.createRollingFileLogger(opts);
   }
 
   @SubscribeMessage('returnState')
@@ -64,9 +73,9 @@ export class AppGateway
     }
 
     if (
-      requestedNo === playersValues.length &&
-      playersValues.filter((value: Player) => value.team === Team.Red).length >= 2 &&
-      playersValues.filter((value: Player) => value.team === Team.Blue).length >= 2
+      requestedNo === playersValues.length
+      && playersValues.filter((value: Player) => value.team === Team.Red).length >= 2
+      && playersValues.filter((value: Player) => value.team === Team.Blue).length >= 2
     ) {
       const redId: string = this.appService.getNextLeader(players, Team.Red);
       const blueId: string = this.appService.getNextLeader(players, Team.Blue);
@@ -108,6 +117,8 @@ export class AppGateway
         winner: null
       };
 
+      this.log.info(`Game started: [${data.boardId}]`);
+
       this.server.emit(
         data.boardId,
         this.stateService.gameStart(game, players, data)
@@ -134,6 +145,8 @@ export class AppGateway
     }
 
     if (requestedNo === playersValues.length) {
+      this.log.info(`Game stopped: [${data.boardId}]`);
+
       this.server.emit(data.boardId, this.stateService.gameStop(data));
     }
   }
@@ -226,14 +239,14 @@ export class AppGateway
       current = {
         team: null,
         wordsNo: null,
-        word: null,
+        word: null
       };
       /* If there was an opponents' tile */
     } else if (game[col][row] !== teamId) {
       current = {
         team: teamId === 0 ? Team.Blue : Team.Red,
         wordsNo: null,
-        word: null,
+        word: null
       };
       /* If there was your tile and it is not the last move */
     } else if (game[col][row] === teamId && current.wordsNo > 1) {
@@ -242,7 +255,7 @@ export class AppGateway
       current = {
         team: teamId === 0 ? Team.Blue : Team.Red,
         wordsNo: null,
-        word: null,
+        word: null
       };
     }
 
@@ -255,6 +268,10 @@ export class AppGateway
     };
 
     const response = this.stateService.moveNext({ boardId, result });
+
+    if (!!winner) {
+      this.log.info(`Game finished: [${data.boardId}] [${Object.keys(state.players).length}]`);
+    }
 
     this.server.emit(
       boardId,
@@ -269,17 +286,17 @@ export class AppGateway
   }
 
   afterInit(server: Server) {
-    this.logger.log('Socket server started');
+    this.log.info('Socket server started');
   }
 
   handleConnection(client: Socket, ...args: any[]) {
-    this.logger.log(`Client connected: ${client.id}`);
+    this.log.info(`Client connected: [${client.id}]`);
   }
 
   handleDisconnect(client: Socket) {
-    this.logger.log(`Client disconnected: ${client.id}`);
-
     const { boardId, state } = this.stateService.handleDisconnect(client.id);
+
+    this.log.info(`Client disconnected: [${boardId}] [${client.id}]`);
 
     if (state) {
       this.server.emit(boardId, state);
