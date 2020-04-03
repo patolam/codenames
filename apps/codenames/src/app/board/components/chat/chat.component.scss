@@ -1,0 +1,63 @@
+@import "../../../../assets/colors";
+
+:host {
+  .chat {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+
+    margin: 16px;
+    height: 200px;
+
+    &__entry {
+      display: flex;
+      align-items: center;
+      margin: 4px 8px;
+
+      .name {
+        padding: 2px 4px;
+        margin-right: 8px;
+
+        background-color: $mustard;
+        color: $gelato;
+        font-size: 12px;
+        text-transform: uppercase;
+
+        &__reds {
+          background-color: $coral;
+        }
+
+        &__blues {
+          background-color: $blue;
+        }
+      }
+    }
+  }
+
+  .input {
+    margin: 16px;
+
+    mat-form-field {
+      width: 100%;
+      font-family: 'Baloo 2', cursive;
+    }
+
+    ::ng-deep {
+      .mat-form-field-appearance-outline {
+        .mat-form-field-outline {
+          color: $black;
+          opacity: 1;
+
+          .mat-form-field-outline-start,
+          .mat-form-field-outline-end {
+            border-radius: 0;
+          }
+        }
+      }
+
+      .mat-form-field-infix {
+        border-top: 0;
+      }
+    }
+  }
+}

@@ -64,10 +64,17 @@
     ></cdn-teams>
 
     <cdn-layer-game
-      *ngIf="state?.game && (state?.game?.leaders?.blue?.id == clientId || state?.game?.leaders?.red?.id === clientId)"
+      *ngIf="state?.game?.leaders?.blue?.id === clientId || state?.game?.leaders?.red?.id === clientId"
       [state]="state"
       [playerForm]="playerForm"
       (movesAccept)="movesAccept($event)"
     ></cdn-layer-game>
+
+    <cdn-chat
+      *ngIf="!state?.game
+      || (state?.game?.leaders?.blue?.id !== clientId && state?.game?.leaders?.red?.id !== clientId)"
+      [state]="state"
+      (sendText)="textSend($event)"
+    ></cdn-chat>
   </div>
 </div>

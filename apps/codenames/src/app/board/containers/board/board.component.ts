@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { Observable } from 'rxjs';
 import { BoardState, Player, Team } from '../../../../../../shared/model/state';
@@ -7,6 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { DialogPlayerComponent } from '../../components/dialog-player/dialog-player.component';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogEndGameComponent } from '../../components/dialog-end-game/dialog-end-game.component';
+import { ChatComponent } from '../../components/chat/chat.component';
 
 interface Tile {
   id: number;
@@ -19,12 +20,13 @@ interface Tile {
   styleUrls: ['./board.component.scss']
 })
 export class BoardComponent implements OnInit {
+  @ViewChild(ChatComponent, {static: false}) chat: ChatComponent;
+
   state$: Observable<BoardState>;
   clientId: string;
   boardId: number;
 
   state: BoardState;
-
   playerForm: FormGroup;
 
   constructor(
@@ -63,6 +65,9 @@ export class BoardComponent implements OnInit {
 
       if (this.state?.event?.endGame === true) {
         this.openDialogEndGame();
+      }
+      if (this.state?.event?.textSend === true) {
+        this.chat?.scrollToEnd();
       }
     });
   }
@@ -121,6 +126,13 @@ export class BoardComponent implements OnInit {
     this.socket.emit('movesAccept', {
       boardId: this.boardId,
       move
+    });
+  }
+
+  textSend(text: string) {
+    this.socket.emit('textSend', {
+      boardId: this.boardId,
+      text
     });
   }
 

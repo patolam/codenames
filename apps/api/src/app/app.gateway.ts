@@ -177,9 +177,27 @@ export class AppGateway
   @SubscribeMessage('movesAccept')
   movesAccept(client: Socket, data: {
     boardId: string;
-    move: { wordsNo: number; word: string }
+    move: {
+      wordsNo: number;
+      word: string
+    }
   }): void {
     this.server.emit(data.boardId, this.stateService.movesAccept(data));
+  }
+
+  @SubscribeMessage('textSend')
+  textSend(client: Socket, data: {
+    boardId: string;
+    text: string
+  }): void {
+    this.server.emit(data.boardId,
+      {
+        ...this.stateService.textSend(client.id, data),
+        event: {
+          textSend: true
+        }
+      }
+    );
   }
 
   @SubscribeMessage('acceptSwitch')

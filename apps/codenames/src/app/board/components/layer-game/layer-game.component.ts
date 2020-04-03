@@ -13,7 +13,7 @@ export class LayerGameComponent implements OnInit {
   @Input() state: BoardState;
   @Input() playerForm: FormGroup;
 
-  @Output() movesAccept: EventEmitter<number> = new EventEmitter();
+  @Output() movesAccept: EventEmitter<any> = new EventEmitter();
 
   constructor(
     public dialog: MatDialog

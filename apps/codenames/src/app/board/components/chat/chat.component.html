@@ -1,0 +1,20 @@
+<div class="chat" #chat>
+  <div class="chat__entry" *ngFor="let entry of state?.chat">
+    <span
+      class="name"
+      [ngClass]="{'name__reds': entry.team === 'Red', 'name__blues': entry.team === 'Blue'}"
+    >{{ entry.name }}
+    </span>
+    <span class="text">{{ entry.text }}</span>
+  </div>
+</div>
+<div class="input">
+  <mat-form-field appearance="outline">
+    <input
+      #input
+      matInput
+      placeholder="Say something..."
+      (keydown.enter)="textSend(input);"
+    />
+  </mat-form-field>
+</div>

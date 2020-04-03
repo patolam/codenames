@@ -75,6 +75,7 @@ export class StateService {
       reds: reds === 3 ? 0 : reds,
       blues: blues === 3 ? 0 : blues
     };
+    state.chat = [];
 
     return state;
   }
@@ -123,6 +124,25 @@ export class StateService {
         word: move.word
       }
     };
+
+    return state;
+  }
+
+  textSend(clientId: string, data: {
+    boardId: string;
+    text: string
+  }): BoardState {
+    const { boardId, text } = data;
+    const state = this.appState.boards[boardId];
+
+    const chat = [...state.chat];
+    chat.push({
+      name: state.players[clientId].name,
+      team: state.players[clientId].team,
+      text
+    });
+
+    state.chat = chat;
 
     return state;
   }
@@ -241,7 +261,8 @@ export class StateService {
       score: {
         reds: 0,
         blues: 0
-      }
+      },
+      chat: []
     };
   }
 }

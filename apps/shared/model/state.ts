@@ -52,8 +52,14 @@ export interface BoardState {
     blues: number;
   },
   event?: {
-    endGame?: boolean
+    endGame?: boolean;
+    textSend?: boolean;
   }
+  chat: {
+    name: string;
+    team: Team;
+    text: string
+  }[]
 }
 
 export interface AppState {
