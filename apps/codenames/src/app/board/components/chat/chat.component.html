@@ -13,7 +13,7 @@
     <input
       #input
       matInput
-      placeholder="Say something..."
+      placeholder="{{ 'chat.input.placeholder' | translate }}"
       (keydown.enter)="textSend(input);"
     />
   </mat-form-field>

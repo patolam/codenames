@@ -1,20 +1,20 @@
-<cdn-dialog header="Hi, let's meet">
+<cdn-dialog header="{{ 'dialog.player.header' | translate }}">
   <div class="form">
     <form [formGroup]="playerForm">
       <mat-form-field appearance="outline">
-        <mat-label>Your name</mat-label>
+        <mat-label>{{ 'dialog.player.name.label' | translate }}</mat-label>
         <input matInput
                formControlName="name"
-               placeholder="Type your name"
+               placeholder="{{ 'dialog.player.name.placeholder' | translate }}"
                required
         />
       </mat-form-field>
 
       <mat-form-field appearance="outline">
-        <mat-label>Your team</mat-label>
+        <mat-label>{{ 'dialog.player.team.label' | translate }}</mat-label>
         <mat-select formControlName="team">
-          <mat-option *ngFor="let team of teams" [value]="team">
-            {{ team }}
+          <mat-option *ngFor="let team of teams" [value]="team.value">
+            {{ team.label }}
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -25,7 +25,7 @@
                 [disabled]="(state?.game && !state?.game?.winner) || playerForm.invalid"
                 type="submit"
         >
-          Join the game
+          {{ 'dialog.player.submit' | translate }}
         </button>
       </div>
     </form>

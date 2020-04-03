@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { BoardState } from '../../../../../../shared/model/state';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'cdn-dialog-end-game',
@@ -12,7 +13,8 @@ export class DialogEndGameComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<DialogEndGameComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private translate: TranslateService
   ) {
     this.state = data.state;
   }
@@ -20,4 +22,9 @@ export class DialogEndGameComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  getWinnerTranslate(): any {
+    return {
+      value: this.translate.instant(`common.team.${this.state?.game?.winner}`)
+    }
+  }
 }

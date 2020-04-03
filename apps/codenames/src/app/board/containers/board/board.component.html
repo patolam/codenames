@@ -8,18 +8,18 @@
   <button matRipple class="button"
           *ngIf="!state?.game || state?.game?.winner" (click)="gameStart()"
           [disabled]="state?.players[clientId]?.requests?.start === true"
-  >Start game
+  >{{ 'board.button.start' | translate }}
   </button>
 
   <button matRipple class="button"
           *ngIf="state?.game && !state?.game?.winner" (click)="gameStop()"
           [disabled]="state?.players[clientId]?.requests?.stop === true"
-  >Stop game
+  >{{ 'board.button.stop' | translate }}
   </button>
 
   <button matRipple class="button" (click)="scoreClear()"
           [disabled]="state?.players[clientId]?.requests?.clear === true"
-  >Clear score
+  >{{ 'board.button.clear' | translate }}
   </button>
 </div>
 
@@ -28,19 +28,19 @@
 
     <div class="info" *ngIf="state?.game?.current as current">
       <span class="info__span">
-        <span>{{ current?.word ? 'Keyword' : 'Next team' }}</span>
+        <span>{{ (current?.word ? 'board.keyword' : 'board.nextTeam') | translate }}</span>
         <div class="circle" [ngClass]="{'red': current?.team ===  'Red', 'blue': current?.team ===  'Blue'}">
-          <span *ngIf="!current?.word">{{ current?.team + 's' }}</span>
+          <span *ngIf="!current?.word">{{ ('common.team.' + current?.team) | translate }}</span>
           <span *ngIf="current?.word">{{ current?.word }} # {{ current?.wordsNo }}</span>
         </div>
       </span>
 
       <span class="info__span" *ngIf="playerForm.get('team').value">
-        <span>Remaining words</span>
+        <span>{{ 'board.remainingWords' | translate }}</span>
         <div class="circle" [ngClass]="'red'">
           {{ state?.game?.leaders?.red?.cardsLeft }}
         </div>
-        <span class="circle__span">vs.</span>
+        <span class="circle__span">{{ 'board.vs' | translate }}</span>
         <div class="circle" [ngClass]="'blue'">
           {{ state?.game?.leaders?.blue?.cardsLeft }}
         </div>

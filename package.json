@@ -46,6 +46,8 @@
     "@nestjs/platform-express": "^7.0.3",
     "@nestjs/platform-socket.io": "^7.0.3",
     "@nestjs/websockets": "^7.0.3",
+    "@ngx-translate/core": "^12.1.2",
+    "@ngx-translate/http-loader": "^4.0.0",
     "@nrwl/angular": "9.1.2",
     "@types/lodash": "^4.14.149",
     "core-js": "^2.5.4",

@@ -1,0 +1,60 @@
+{
+  "common": {
+    "team": {
+      "Red": "Czerwoni",
+      "Blue": "Niebiescy"
+    }
+  },
+  "board": {
+    "button": {
+      "start": "Gra start",
+      "stop": "Gra stop",
+      "clear": "Zeruj wynik"
+    },
+    "keyword": "Słowo-klucz",
+    "nextTeam": "Kolejna drużyna",
+    "remainingWords": "Pozostałe słowa",
+    "vs": "vs"
+  },
+  "chat": {
+    "input": {
+      "placeholder": "Powiedz coś"
+    }
+  },
+  "dialog": {
+    "endGame": {
+      "header": "No i mamy koniec!",
+      "info": "Drużyna {{value}} wygrała grę!",
+      "submit": "Jasne, dzięki"
+    },
+    "moves": {
+      "header": "Jakie to słowo-klucz?",
+      "input": {
+        "label": "Słowo-klucz",
+        "placeholder": "Wpisz słowo-klucz"
+      }
+    },
+    "player": {
+      "header": "Hej, poznajmy się!",
+      "name": {
+        "label": "Twoje imię",
+        "placeholder": "Wpisz swoje imię"
+      },
+      "team": {
+        "label": "Twoja drużyna"
+      },
+      "submit": "Dołącz do gry"
+    }
+  },
+  "layer": {
+    "game": {
+      "accept": "Ok, gotów"
+    }
+  },
+  "teams": {
+    "leader": "Lider",
+    "ready": "Gotów",
+    "stop": "Stop",
+    "clear": "Zeruj"
+  }
+}

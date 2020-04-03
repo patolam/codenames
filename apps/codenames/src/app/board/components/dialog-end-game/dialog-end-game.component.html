@@ -1,13 +1,13 @@
-<cdn-dialog header="And this is over!">
+<cdn-dialog header="{{ 'dialog.endGame.header' | translate }}">
   <div class="container">
-    <span class="info">The {{state?.game?.winner}} team won the game!</span>
+    <span class="info">{{ 'dialog.endGame.info' | translate:getWinnerTranslate() }}</span>
 
     <div class="button">
       <button matRipple class="button__join"
               [mat-dialog-close]="true"
               type="submit"
       >
-        I see, thanks
+        {{ 'dialog.endGame.submit' | translate }}
       </button>
     </div>
   </div>

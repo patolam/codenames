@@ -2,7 +2,7 @@
   <div class="teams__header">
     <div class="header">
       <div class="header__reds">
-        <span class="name">Reds</span>
+        <span class="name">{{ 'common.team.Red' | translate }}</span>
         <mat-icon>{{ state?.score?.reds > 0 ? 'star' : 'star_border' }}</mat-icon>
         <mat-icon>{{ state?.score?.reds > 1 ? 'star' : 'star_border' }}</mat-icon>
         <mat-icon>{{ state?.score?.reds > 2 ? 'star' : 'star_border' }}</mat-icon>
@@ -11,7 +11,7 @@
 
     <div class="header">
       <div class="header__blues">
-        <span class="name">Blues</span>
+        <span class="name">{{ 'common.team.Blue' | translate }}</span>
         <mat-icon>{{ state?.score?.blues > 0 ? 'star' : 'star_border' }}</mat-icon>
         <mat-icon>{{ state?.score?.blues > 1 ? 'star' : 'star_border' }}</mat-icon>
         <mat-icon>{{ state?.score?.blues > 2 ? 'star' : 'star_border' }}</mat-icon>
@@ -23,20 +23,20 @@
     <div class="body__reds">
       <div class="player" *ngFor="let player of state?.players | team:'Red' | keyvalue">
         <span>{{ player.value.name }}</span>
-        <div class="flag" *ngIf="player.key === state?.game?.leaders?.red?.id">Leader</div>
-        <div class="flag" *ngIf="player.value.requests.start">Ready</div>
-        <div class="flag" *ngIf="player.value.requests.stop">Stop</div>
-        <div class="flag" *ngIf="player.value.requests.clear">Clear</div>
+        <div class="flag" *ngIf="player.key === state?.game?.leaders?.red?.id">{{ 'teams.leader' | translate }}</div>
+        <div class="flag" *ngIf="player.value.requests.start">{{ 'teams.ready' | translate }}</div>
+        <div class="flag" *ngIf="player.value.requests.stop">{{ 'teams.stop' | translate }}</div>
+        <div class="flag" *ngIf="player.value.requests.clear">{{ 'teams.clear' | translate }}</div>
       </div>
     </div>
 
     <div class="body__blues">
       <div class="player" *ngFor="let player of state?.players | team:'Blue' | keyvalue">
         <span>{{ player.value.name }}</span>
-        <div class="flag" *ngIf="player.key === state?.game?.leaders?.blue?.id">Leader</div>
-        <div class="flag" *ngIf="player.value.requests.start">Ready</div>
-        <div class="flag" *ngIf="player.value.requests.stop">Stop</div>
-        <div class="flag" *ngIf="player.value.requests.clear">Clear</div>
+        <div class="flag" *ngIf="player.key === state?.game?.leaders?.blue?.id">{{ 'teams.leader' | translate }}</div>
+        <div class="flag" *ngIf="player.value.requests.start">{{ 'teams.ready' | translate }}</div>
+        <div class="flag" *ngIf="player.value.requests.stop">{{ 'teams.stop' | translate }}</div>
+        <div class="flag" *ngIf="player.value.requests.clear">{{ 'teams.clear' | translate }}</div>
       </div>
     </div>
   </div>

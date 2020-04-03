@@ -1,0 +1,60 @@
+{
+  "common": {
+    "team": {
+      "Red": "Reds",
+      "Blue": "Blues"
+    }
+  },
+  "board": {
+    "button": {
+      "start": "Start game",
+      "stop": "Stop game",
+      "clear": "Clear score"
+    },
+    "keyword": "Keyword",
+    "nextTeam": "Next team",
+    "remainingWords": "Remaining words",
+    "vs": "vs"
+  },
+  "chat": {
+    "input": {
+      "placeholder": "Say something"
+    }
+  },
+  "dialog": {
+    "endGame": {
+      "header": "And this is over!",
+      "info": "The {{value}} team wins the game!",
+      "submit": "I see, thanks"
+    },
+    "moves": {
+      "header": "What's your keyword?",
+      "input": {
+        "label": "Your keyword",
+        "placeholder": "Type the keyword"
+      }
+    },
+    "player": {
+      "header": "Hi, let's meet!",
+      "name": {
+        "label": "Your name",
+        "placeholder": "Type your name"
+      },
+      "team": {
+        "label": "Your team"
+      },
+      "submit": "Join the game"
+    }
+  },
+  "layer": {
+    "game": {
+      "accept": "I'm ready"
+    }
+  },
+  "teams": {
+    "leader": "Leader",
+    "ready": "Ready",
+    "stop": "Stop",
+    "clear": "Clear"
+  }
+}

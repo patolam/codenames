@@ -16,6 +16,6 @@
           (click)="openDialog()"
           [disabled]="state?.game?.current?.wordsNo || state?.game?.current?.team !== playerForm.get('team').value"
   >
-    I'm ready
+    {{ 'layer.game.accept' | translate }}
   </button>
 </div>

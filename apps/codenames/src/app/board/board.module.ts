@@ -22,11 +22,25 @@ import { DialogMovesComponent } from './components/dialog-moves/dialog-moves.com
 import { DialogPlayerComponent } from './components/dialog-player/dialog-player.component';
 import { DialogEndGameComponent } from './components/dialog-end-game/dialog-end-game.component';
 import { ChatComponent } from './components/chat/chat.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 const config: SocketIoConfig = { url: environment.socket, options: {} };
 
 @NgModule({
-  declarations: [BoardComponent, TileComponent, TeamPipe, HeaderComponent, DialogPlayerComponent, TeamsComponent, LayerGameComponent, LayerLiveComponent, DialogComponent, DialogMovesComponent, DialogEndGameComponent, ChatComponent],
+  declarations: [
+    BoardComponent,
+    TileComponent,
+    TeamPipe,
+    HeaderComponent,
+    DialogPlayerComponent,
+    TeamsComponent,
+    LayerGameComponent,
+    LayerLiveComponent,
+    DialogComponent,
+    DialogMovesComponent,
+    DialogEndGameComponent,
+    ChatComponent
+  ],
   exports: [BoardComponent],
   imports: [
     CommonModule,
@@ -37,10 +51,9 @@ const config: SocketIoConfig = { url: environment.socket, options: {} };
     RouterModule.forChild(routes),
     MatIconModule,
     MatRippleModule,
-    MatDialogModule
+    MatDialogModule,
+    TranslateModule.forChild()
   ],
   providers: []
 })
-export class BoardModule {
-}
-
+export class BoardModule {}
