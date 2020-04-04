@@ -10,8 +10,8 @@
   },
   "board": {
     "button": {
-      "start": "Gra start",
-      "stop": "Gra stop",
+      "start": "Zabawa start",
+      "stop": "Zabawa stop",
       "clear": "Zeruj wynik"
     },
     "keyword": "Słowo-klucz",
@@ -51,12 +51,12 @@
   },
   "layer": {
     "game": {
-      "accept": "Ok, gotów"
+      "accept": "Podaję słowo"
     }
   },
   "teams": {
     "leader": "Lider",
-    "ready": "Gotów",
+    "ready": "Start",
     "stop": "Stop",
     "clear": "Zeruj"
   }
