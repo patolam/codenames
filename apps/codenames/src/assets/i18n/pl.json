@@ -41,7 +41,7 @@
       "header": "Hej, poznajmy się!",
       "name": {
         "label": "Podaj nazwę",
-        "placeholder": "Może być imię lub ksywka"
+        "placeholder": "Wpisz imię lub ksywkę"
       },
       "team": {
         "label": "Wybierz drużynę"
