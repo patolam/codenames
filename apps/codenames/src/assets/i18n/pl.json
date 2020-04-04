@@ -5,6 +5,9 @@
       "Blue": "Niebiescy"
     }
   },
+  "error": {
+    "playerName": "To imię jest niepoprawne :("
+  },
   "board": {
     "button": {
       "start": "Gra start",

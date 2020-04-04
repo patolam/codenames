@@ -8,6 +8,7 @@
                placeholder="{{ 'dialog.player.name.placeholder' | translate }}"
                required
         />
+        <mat-error *ngIf="playerForm.get('name').invalid">{{ 'error.playerName' | translate }}</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
@@ -22,7 +23,7 @@
       <div class="button">
         <button matRipple class="button__join"
                 [mat-dialog-close]="data.playerForm"
-                [disabled]="(state?.game && !state?.game?.winner) || playerForm.invalid"
+                [disabled]="playerForm.invalid"
                 type="submit"
         >
           {{ 'dialog.player.submit' | translate }}

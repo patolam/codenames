@@ -5,6 +5,9 @@
       "Blue": "Blues"
     }
   },
+  "error": {
+    "playerName": "This name is invalid :("
+  },
   "board": {
     "button": {
       "start": "Start game",

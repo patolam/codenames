@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { Observable } from 'rxjs';
 import { BoardState, Player, Team } from '../../../../../../shared/model/state';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { DialogPlayerComponent } from '../../components/dialog-player/dialog-player.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -20,7 +20,7 @@ interface Tile {
   styleUrls: ['./board.component.scss']
 })
 export class BoardComponent implements OnInit {
-  @ViewChild(ChatComponent, {static: false}) chat: ChatComponent;
+  @ViewChild(ChatComponent, { static: false }) chat: ChatComponent;
 
   state$: Observable<BoardState>;
   clientId: string;
@@ -50,14 +50,19 @@ export class BoardComponent implements OnInit {
     });
 
     this.playerForm = this.formBuilder.group({
-      name: [''],
+      name: ['',
+        [
+          Validators.minLength(3),
+          Validators.pattern('^[^\\s]+(\\s+[^\\s]+)*$')
+        ]
+      ],
       team: [Team.Red]
     });
 
     this.state$.subscribe((state: BoardState) => {
       this.state = state;
 
-      if (this.state?.game && !this.state?.game.winner) {
+      if (this.state?.game && Object.keys(this.state?.players).includes(this.clientId)) {
         this.playerForm.disable();
       } else {
         this.playerForm.enable();
