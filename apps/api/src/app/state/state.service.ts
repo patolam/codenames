@@ -166,6 +166,7 @@ export class StateService {
     const {
       live,
       current,
+      players,
       points,
       winner,
       accept
@@ -199,6 +200,8 @@ export class StateService {
       blues: winner === Team.Blue ? ++state.score.blues : state.score.blues
     };
 
+    state.players = players;
+
     return state;
   }
 
@@ -211,26 +214,23 @@ export class StateService {
         delete this.appState.boards[key].players[clientId];
         boardId = key;
       }
+
+      /* Delete leader entry */
+      if (this.appState.boards[key].game?.leaders?.red?.id === clientId) {
+        this.appState.boards[key].game.leaders.red = null;
+      } else if (this.appState.boards[key].game?.leaders?.blue?.id === clientId) {
+        this.appState.boards[key].game.leaders.blue = null;
+      }
     });
 
-    const state = this.appState.boards[boardId];
+    let state = this.appState.boards[boardId];
 
     if (boardId) {
-      const { game, players } = state;
+      const { game } = state;
 
-      /* Pass the leadership to another team player */
-      if (game) {
-        if (game.leaders.red.id === boardId) {
-          game.leaders.red.id = this.appService.getNextLeader(
-            players,
-            Team.Red
-          );
-        } else if (game.leaders.blue.id === boardId) {
-          game.leaders.blue.id = this.appService.getNextLeader(
-            players,
-            Team.Blue
-          );
-        }
+      /* Stop the game if there is no leader left for the team */
+      if (game && !(game.leaders.red && game.leaders.blue)) {
+        state = this.gameStop({ boardId });
       }
     }
 

@@ -80,14 +80,6 @@ export class AppGateway
       const redId: string = this.appService.getNextLeader(players, Team.Red);
       const blueId: string = this.appService.getNextLeader(players, Team.Blue);
 
-      if (redId) {
-        players[redId].leadNo++;
-      }
-
-      if (blueId) {
-        players[blueId].leadNo++;
-      }
-
       const nextTeam: Team =
         blueId && redId ? _.sample(Team) : redId ? Team.Red : Team.Blue;
 
@@ -230,11 +222,12 @@ export class AppGateway
 
     const accept = {};
 
-    const game = state.game.layers.game;
+    const gameLayer = state.game.layers.game;
     const live = [...state.game.layers.live];
     let current = { ...state.game.current };
+    const players = { ...state.players };
 
-    live[col][row] = game[col][row];
+    live[col][row] = gameLayer[col][row];
 
     const teamId: number = current.team === Team.Red ? 0 : 1;
 
@@ -249,7 +242,7 @@ export class AppGateway
       winner = Team.Red;
     } else if (points.blues === (state.game.startTeam === Team.Blue ? 9 : 8)) {
       winner = Team.Blue;
-    } else if (game[col][row] === 2) {
+    } else if (gameLayer[col][row] === 2) {
       winner = state.game.current.team === Team.Red ? Team.Blue : Team.Red;
     }
     /* If there was a black tile */
@@ -259,17 +252,21 @@ export class AppGateway
         wordsNo: null,
         word: null
       };
+
+      players[state.game.leaders.red.id].leadNo++;
+      players[state.game.leaders.blue.id].leadNo++;
+
       /* If there was an opponents' tile */
-    } else if (game[col][row] !== teamId) {
+    } else if (gameLayer[col][row] !== teamId) {
       current = {
         team: teamId === 0 ? Team.Blue : Team.Red,
         wordsNo: null,
         word: null
       };
       /* If there was your tile and it is not the last move */
-    } else if (game[col][row] === teamId && current.wordsNo > 1) {
+    } else if (gameLayer[col][row] === teamId && current.wordsNo > 1) {
       current.wordsNo--;
-    } else if (game[col][row] === teamId && current.wordsNo === 1) {
+    } else if (gameLayer[col][row] === teamId && current.wordsNo === 1) {
       current = {
         team: teamId === 0 ? Team.Blue : Team.Red,
         wordsNo: null,
@@ -280,6 +277,7 @@ export class AppGateway
     const result = {
       live,
       current,
+      players,
       points,
       winner,
       accept
