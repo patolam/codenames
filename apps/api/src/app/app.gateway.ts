@@ -56,6 +56,7 @@ export class AppGateway
 
   @SubscribeMessage('gameStart')
   gameStart(client: Socket, data: { boardId: string }): void {
+    const state = { ...this.boards[data.boardId] };
     const players = { ...this.boards[data.boardId].players };
     const playersValues: Player[] = Object.values(players);
 
@@ -101,7 +102,7 @@ export class AppGateway
           word: null
         },
         layers: {
-          words: this.appService.getWordsBoard(),
+          words: this.appService.getWordsBoard(state.dictionary),
           game: this.appService.getGameBoard(nextTeam),
           live: this.appService.getLiveBoard()
         },

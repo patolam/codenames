@@ -59,7 +59,8 @@ export interface BoardState {
     name: string;
     team: Team;
     text: string
-  }[]
+  }[],
+  dictionary: string[],
 }
 
 export interface AppState {

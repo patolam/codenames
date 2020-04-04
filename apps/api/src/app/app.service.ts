@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Player, Team } from '../../../shared/model/state';
 import * as _ from 'lodash';
-import { dictionary } from '../assets/dictionary';
 
 @Injectable()
 export class AppService {
@@ -9,8 +8,8 @@ export class AppService {
     return this.simpleBoardFactory(-2);
   }
 
-  getWordsBoard(): string[][] {
-    return this.arrayToBoard(_.shuffle(dictionary).slice(0, 25));
+  getWordsBoard(dictionary: string[]): string[][] {
+    return this.arrayToBoard(dictionary).slice(0, 5);
   }
 
   getGameBoard(leadTeam: Team): number[][] {

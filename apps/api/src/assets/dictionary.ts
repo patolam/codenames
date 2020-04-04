@@ -397,4 +397,6 @@ export const dictionary: string[] = [
   'wieża',
   'amazonka',
   'ruletka',
+  'wazon',
+  'piosenkarz',
 ];

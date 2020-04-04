@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { AppState, BoardState, Game, Player, Team } from '../../../../shared/model/state';
 import { AppService } from '../app.service';
+import { dictionary } from '../../assets/dictionary';
+import * as _ from 'lodash';
 
 @Injectable()
 export class StateService {
@@ -76,6 +78,10 @@ export class StateService {
       blues: blues === 3 ? 0 : blues
     };
     state.chat = [];
+
+    if (state.dictionary.length >= 25) {
+      state.dictionary.splice(0, 25);
+    }
 
     return state;
   }
@@ -202,6 +208,10 @@ export class StateService {
 
     state.players = players;
 
+    if (winner && state.dictionary.length < 25) {
+      state.dictionary = _.shuffle(dictionary);
+    }
+
     return state;
   }
 
@@ -262,7 +272,8 @@ export class StateService {
         reds: 0,
         blues: 0
       },
-      chat: []
+      chat: [],
+      dictionary: _.shuffle(dictionary),
     };
   }
 }
