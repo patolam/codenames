@@ -6,12 +6,12 @@
     }
   },
   "error": {
-    "playerName": "To imię jest niepoprawne :("
+    "playerName": "Ta nazwa jest niepoprawna :("
   },
   "board": {
     "button": {
-      "start": "Gra start",
-      "stop": "Gra stop",
+      "start": "Zabawa start",
+      "stop": "Zabawa stop",
       "clear": "Zeruj wynik"
     },
     "keyword": "Słowo-klucz",
@@ -21,42 +21,42 @@
   },
   "chat": {
     "input": {
-      "placeholder": "Powiedz coś"
+      "placeholder": "Powiedz coś ciekawego..."
     }
   },
   "dialog": {
     "endGame": {
       "header": "No i mamy koniec!",
-      "info": "Drużyna {{value}} wygrała grę!",
+      "info": "Gracze {{value}} wygrali tę rundę!",
       "submit": "Jasne, dzięki"
     },
     "moves": {
-      "header": "Jakie to słowo-klucz?",
+      "header": "Masz już pomysł?",
       "input": {
-        "label": "Słowo-klucz",
-        "placeholder": "Wpisz słowo-klucz"
+        "label": "Podaj słowo-klucz",
+        "placeholder": "Oby to było w punkt"
       }
     },
     "player": {
       "header": "Hej, poznajmy się!",
       "name": {
-        "label": "Twoje imię",
-        "placeholder": "Wpisz swoje imię"
+        "label": "Podaj nazwę",
+        "placeholder": "Może być imię lub ksywka"
       },
       "team": {
-        "label": "Twoja drużyna"
+        "label": "Wybierz drużynę"
       },
       "submit": "Dołącz do gry"
     }
   },
   "layer": {
     "game": {
-      "accept": "Ok, gotów"
+      "accept": "Uwaga, podaję"
     }
   },
   "teams": {
     "leader": "Lider",
-    "ready": "Gotów",
+    "ready": "Start",
     "stop": "Stop",
     "clear": "Zeruj"
   }
