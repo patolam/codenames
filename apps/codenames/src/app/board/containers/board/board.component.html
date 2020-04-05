@@ -28,10 +28,10 @@
 
     <div class="info" *ngIf="state?.game?.current as current">
       <span class="info__span">
-        <span>{{ (current?.word ? 'board.keyword' : 'board.nextTeam') | translate }}</span>
+        <span>{{ (current?.wordsNo ? 'board.keyword' : 'board.nextTeam') | translate }}</span>
         <div class="circle" [ngClass]="{'red': current?.team ===  'Red', 'blue': current?.team ===  'Blue'}">
-          <span *ngIf="!current?.word">{{ ('common.team.' + current?.team) | translate }}</span>
-          <span *ngIf="current?.word">{{ current?.word }} # {{ current?.wordsNo }}</span>
+          <span *ngIf="!current?.wordsNo">{{ ('common.team.' + current?.team) | translate }}</span>
+          <span *ngIf="current?.wordsNo">{{ current?.word }} # {{ current?.wordsNo }}</span>
         </div>
       </span>
 

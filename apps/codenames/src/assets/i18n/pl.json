@@ -21,26 +21,26 @@
   },
   "chat": {
     "input": {
-      "placeholder": "Powiedz coś ciekawego..."
+      "placeholder": "Napisz coś"
     }
   },
   "dialog": {
     "endGame": {
       "header": "No i mamy koniec!",
-      "info": "Gracze {{value}} wygrali tę rundę!",
+      "info": "Gracze {{value}} wygrywają!",
       "submit": "Jasne, dzięki"
     },
     "moves": {
       "header": "Masz już pomysł?",
       "input": {
         "label": "Podaj słowo-klucz",
-        "placeholder": "Oby to było w punkt"
+        "placeholder": "Obejmij jak najwięcej słów"
       }
     },
     "player": {
       "header": "Hej, poznajmy się!",
       "name": {
-        "label": "Podaj nazwę",
+        "label": "Podaj swoją nazwę",
         "placeholder": "Wpisz imię lub ksywkę"
       },
       "team": {
@@ -51,7 +51,7 @@
   },
   "layer": {
     "game": {
-      "accept": "Uwaga, podaję"
+      "accept": "Podaję słowo"
     }
   },
   "teams": {
