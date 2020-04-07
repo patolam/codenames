@@ -126,8 +126,8 @@ export class StateService {
       ...state.game,
       current: {
         ...state.game.current,
-        wordsNo: move.wordsNo,
-        word: move.word
+        wordsNo: move?.wordsNo,
+        word: move?.word
       }
     };
 
