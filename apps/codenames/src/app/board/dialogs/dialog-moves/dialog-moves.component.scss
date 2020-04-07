@@ -6,28 +6,13 @@
     align-items: center;
     flex-wrap: wrap;
 
-    .button {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
+    .move {
       flex: 0 1 calc(33% - 4px);
+      margin: 2px;
 
-      border: 0;
-      padding: 16px;
-      cursor: pointer;
-      outline: none;
-
-      font-family: 'Baloo 2', cursive;
-      font-size: 20px;
-
-      margin: 0 4px 4px 0;
-
-      color: $gelato;
-      background-color: $mustard;
-
-      &[disabled] {
-        background-color: $gray;
+      ::ng-deep > button {
+        width: 100%;
+        height: 60px;
       }
     }
   }

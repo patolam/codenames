@@ -1,0 +1,19 @@
+<cdn-button
+  *ngIf="!state?.game || state?.game?.winner"
+  [disabled]="state?.players[clientId]?.requests?.start === true"
+  (click)="startGame.emit()"
+>{{ 'board.button.start' | translate }}
+</cdn-button>
+
+<cdn-button
+  *ngIf="state?.game && !state?.game?.winner"
+  [disabled]="state?.players[clientId]?.requests?.stop === true"
+  (click)="stopGame.emit()"
+>{{ 'board.button.stop' | translate }}
+</cdn-button>
+
+<cdn-button
+  [disabled]="state?.players[clientId]?.requests?.clear === true"
+  (click)="clearScore.emit()"
+>{{ 'board.button.clear' | translate }}
+</cdn-button>

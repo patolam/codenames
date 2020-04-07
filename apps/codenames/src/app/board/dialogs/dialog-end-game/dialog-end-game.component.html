@@ -3,12 +3,10 @@
     <span class="info">{{ 'dialog.endGame.info' | translate:getWinnerTranslate() }}</span>
 
     <div class="button">
-      <button matRipple class="button__join"
-              [mat-dialog-close]="true"
-              type="submit"
-      >
-        {{ 'dialog.endGame.submit' | translate }}
-      </button>
+      <cdn-button
+        [mat-dialog-close]="true"
+      >{{ 'dialog.endGame.submit' | translate }}
+      </cdn-button>
     </div>
   </div>
 </cdn-dialog>

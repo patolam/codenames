@@ -6,7 +6,8 @@
     }
   },
   "error": {
-    "playerName": "Ta nazwa jest niepoprawna :("
+    "playerName": "Ta nazwa jest niepoprawna :(",
+    "keyword": "Spróbuj wpisać wyłącznie litery :("
   },
   "board": {
     "button": {

@@ -1,9 +1,7 @@
-<div class="toolbar">
-  <div class="toolbar__title">
-    <span># Keywords</span>
-  </div>
-  <button class="toolbar__player" matRipple (click)="onDialogOpen()">
-    <span *ngIf="playerForm.get('name').value as value">{{ value }}</span>
-    <mat-icon>face</mat-icon>
-  </button>
+<div class="title">
+  <span># Keywords</span>
 </div>
+<button class="player" matRipple (click)="onDialogOpen()">
+  <span *ngIf="playerForm.get('name').value as value">{{ value }}</span>
+  <mat-icon>face</mat-icon>
+</button>

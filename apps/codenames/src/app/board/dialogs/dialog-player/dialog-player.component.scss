@@ -1,0 +1,23 @@
+@import "../../../../assets/colors";
+
+:host {
+  mat-form-field {
+    width: 100%;
+    font-family: 'Baloo 2', cursive;
+    margin-bottom: 8px;
+  }
+
+  ::ng-deep {
+    .mat-form-field-appearance-outline {
+      .mat-form-field-outline {
+        color: $black;
+        opacity: 1;
+
+        .mat-form-field-outline-start,
+        .mat-form-field-outline-end {
+          border-radius: 0;
+        }
+      }
+    }
+  }
+}

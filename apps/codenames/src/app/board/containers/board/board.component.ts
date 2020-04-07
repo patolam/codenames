@@ -4,15 +4,10 @@ import { Observable } from 'rxjs';
 import { BoardState, Player, Team } from '../../../../../../shared/model/state';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { DialogPlayerComponent } from '../../components/dialog-player/dialog-player.component';
+import { DialogPlayerComponent } from '../../dialogs/dialog-player/dialog-player.component';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogEndGameComponent } from '../../components/dialog-end-game/dialog-end-game.component';
+import { DialogEndGameComponent } from '../../dialogs/dialog-end-game/dialog-end-game.component';
 import { ChatComponent } from '../../components/chat/chat.component';
-
-interface Tile {
-  id: number;
-  word: any;
-}
 
 @Component({
   selector: 'cdn-board',
@@ -24,7 +19,7 @@ export class BoardComponent implements OnInit {
 
   state$: Observable<BoardState>;
   clientId: string;
-  boardId: number;
+  boardId: string;
 
   state: BoardState;
   playerForm: FormGroup;

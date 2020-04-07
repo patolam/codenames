@@ -4,39 +4,6 @@
   display: block;
   position: relative;
 
-  .toolbar {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-
-    height: 48px;
-    padding: 0 32px;
-
-    background-color: white;
-
-    .button {
-      display: flex;
-      align-items: center;
-      margin-left: 8px;
-
-      font-size: 18px;
-      font-family: 'Baloo 2', cursive;
-
-      color: $gelato;
-      background-color: $mustard;
-      text-transform: uppercase;
-
-      border: 0;
-      padding: 2px 8px;
-      cursor: pointer;
-      outline: none;
-
-      &[disabled] {
-        background-color: $gray;
-      }
-    }
-  }
-
   .area {
     display: flex;
     margin: 16px;
@@ -49,47 +16,6 @@
       flex-direction: column;
 
       width: 100%;
-
-      .info {
-        display: flex;
-        justify-content: space-between;
-
-        width: 100%;
-        font-family: 'Baloo 2', cursive;
-        font-size: 22px;
-        text-transform: uppercase;
-        margin-bottom: 20px;
-
-        &__span {
-          display: flex;
-          align-items: center;
-        }
-
-        .circle {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-
-          margin-left: 16px;
-          min-width: 20px;
-          padding: 0 8px;
-
-          font-size: 22px;
-          color: $gelato;
-
-          &.red {
-            background-color: $coral;
-          }
-
-          &.blue {
-            background-color: $blue;
-          }
-
-          &__span {
-            margin-left: 16px;
-          }
-        }
-      }
 
       .live {
         display: flex;
@@ -111,9 +37,4 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  &__slider {
-    flex: 1;
-    margin-bottom: 20px;
-  }
 }

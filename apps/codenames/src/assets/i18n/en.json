@@ -6,7 +6,8 @@
     }
   },
   "error": {
-    "playerName": "This name is invalid :("
+    "playerName": "This name is invalid :(",
+    "keyword": "Try to type letters only :("
   },
   "board": {
     "button": {

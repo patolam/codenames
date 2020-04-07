@@ -1,0 +1,12 @@
+@import "../../../../assets/colors";
+
+:host {
+  .container {
+    font-family: 'Baloo 2', cursive;
+
+    .info {
+      font-size: 20px;
+      text-transform: uppercase;
+    }
+  }
+}

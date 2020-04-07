@@ -12,10 +12,9 @@
     </div>
   </div>
 
-  <button class="accept" matRipple
-          (click)="openDialog()"
-          [disabled]="state?.game?.current?.wordsNo || state?.game?.current?.team !== playerForm.get('team').value"
-  >
-    {{ 'layer.game.accept' | translate }}
-  </button>
+  <cdn-button
+    (click)="openDialog()"
+    [disabled]="state?.game?.current?.wordsNo || state?.game?.current?.team !== playerForm.get('team').value"
+  >{{ 'layer.game.accept' | translate }}
+  </cdn-button>
 </div>

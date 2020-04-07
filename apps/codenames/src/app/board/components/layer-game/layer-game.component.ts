@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BoardState } from '../../../../../../shared/model/state';
 import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogMovesComponent } from '../dialog-moves/dialog-moves.component';
+import { DialogMovesComponent } from '../../dialogs/dialog-moves/dialog-moves.component';
 
 @Component({
   selector: 'cdn-layer-game',

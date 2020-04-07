@@ -1,0 +1,22 @@
+@import "../../../../assets/colors";
+
+:host {
+  display: flex;
+  padding: 4px 8px;
+
+  color: $gelato;
+  font-size: 18px;
+  text-transform: uppercase;
+
+  &.red {
+    background-color: $coral;
+  }
+
+  &.blue {
+    background-color: $blue;
+  }
+
+  //.name {
+  //  margin-right: 8px;
+  //}
+}

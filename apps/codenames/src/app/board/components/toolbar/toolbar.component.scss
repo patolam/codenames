@@ -1,0 +1,16 @@
+@import "../../../../assets/colors";
+
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  height: 48px;
+  padding: 0 32px;
+
+  background-color: $gelato;
+
+  cdn-button + cdn-button {
+    margin-left: 8px;
+  }
+}

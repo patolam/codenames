@@ -20,15 +20,11 @@
         </mat-select>
       </mat-form-field>
 
-      <div class="button">
-        <button matRipple class="button__join"
-                [mat-dialog-close]="data.playerForm"
-                [disabled]="playerForm.invalid"
-                type="submit"
-        >
-          {{ 'dialog.player.submit' | translate }}
-        </button>
-      </div>
+      <cdn-button
+        [mat-dialog-close]="data.playerForm"
+        [disabled]="playerForm.invalid"
+      >{{ 'dialog.player.submit' | translate }}
+      </cdn-button>
     </form>
   </div>
 </cdn-dialog>

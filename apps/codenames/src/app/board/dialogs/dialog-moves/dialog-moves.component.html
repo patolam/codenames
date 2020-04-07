@@ -1,5 +1,5 @@
 <cdn-dialog header="{{ 'dialog.moves.header' | translate }}">
-  <form [formGroup]="movesForm">
+  <form [formGroup]="movesForm" (keydown.enter)="$event.preventDefault()">
     <div class="container">
       <mat-form-field appearance="outline">
         <mat-label>{{ 'dialog.moves.input.label' | translate }}</mat-label>
@@ -8,16 +8,17 @@
                placeholder="{{ 'dialog.moves.input.placeholder' | translate }}"
                required
         />
+        <mat-error *ngIf="movesForm.get('word').invalid">{{ 'error.keyword' | translate }}</mat-error>
       </mat-form-field>
 
-      <button matRipple
-              *ngFor="let item of items"
-              [mat-dialog-close]="{ wordsNo: item, word: movesForm.get('word').value }"
-              [disabled]="movesForm.invalid"
-              type="submit"
-              class="button">
-        {{item}}
-      </button>
+      <cdn-button
+        *ngFor="let item of items"
+        [mat-dialog-close]="{ wordsNo: item, word: movesForm.get('word').value }"
+        [disabled]="movesForm.invalid"
+        width="20"
+        class="move"
+      >{{item}}
+      </cdn-button>
     </div>
   </form>
 </cdn-dialog>

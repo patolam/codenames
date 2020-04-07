@@ -35,7 +35,7 @@ export class DialogMovesComponent implements OnInit {
       word: ['',
         [
           Validators.minLength(2),
-          Validators.pattern('^[^\\s]+(\\s+[^\\s]{1})*$')
+          Validators.pattern('^[A-Za-z]+$')
         ]
       ],
     });

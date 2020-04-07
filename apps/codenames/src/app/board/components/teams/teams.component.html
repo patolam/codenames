@@ -1,21 +1,21 @@
 <div class="teams">
-  <div class="teams__header">
-    <div class="header">
-      <div class="header__reds">
+  <div class="teams__caption">
+    <div class="caption">
+      <cdn-caption class="red">
         <span class="name">{{ 'common.team.Red' | translate }}</span>
         <mat-icon>{{ state?.score?.reds > 0 ? 'star' : 'star_border' }}</mat-icon>
         <mat-icon>{{ state?.score?.reds > 1 ? 'star' : 'star_border' }}</mat-icon>
         <mat-icon>{{ state?.score?.reds > 2 ? 'star' : 'star_border' }}</mat-icon>
-      </div>
+      </cdn-caption>
     </div>
 
-    <div class="header">
-      <div class="header__blues">
+    <div class="caption">
+      <cdn-caption class="blue">
         <span class="name">{{ 'common.team.Blue' | translate }}</span>
         <mat-icon>{{ state?.score?.blues > 0 ? 'star' : 'star_border' }}</mat-icon>
         <mat-icon>{{ state?.score?.blues > 1 ? 'star' : 'star_border' }}</mat-icon>
         <mat-icon>{{ state?.score?.blues > 2 ? 'star' : 'star_border' }}</mat-icon>
-      </div>
+      </cdn-caption>
     </div>
   </div>
 
