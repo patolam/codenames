@@ -1,19 +1,23 @@
 <cdn-dialog header="{{ 'dialog.moves.header' | translate }}">
-  <div class="container">
-    <mat-form-field appearance="outline">
-      <mat-label>{{ 'dialog.moves.input.label' | translate }}</mat-label>
-      <input #word
-             matInput
-             placeholder="{{ 'dialog.moves.input.placeholder' | translate }}"
-             required
-      />
-    </mat-form-field>
+  <form [formGroup]="movesForm">
+    <div class="container">
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'dialog.moves.input.label' | translate }}</mat-label>
+        <input matInput
+               formControlName="word"
+               placeholder="{{ 'dialog.moves.input.placeholder' | translate }}"
+               required
+        />
+      </mat-form-field>
 
-    <button matRipple
-            *ngFor="let item of items"
-            [mat-dialog-close]="{ wordsNo: item, word: word.value }"
-            class="button">
-      {{item}}
-    </button>
-  </div>
+      <button matRipple
+              *ngFor="let item of items"
+              [mat-dialog-close]="{ wordsNo: item, word: movesForm.get('word').value }"
+              [disabled]="movesForm.invalid"
+              type="submit"
+              class="button">
+        {{item}}
+      </button>
+    </div>
+  </form>
 </cdn-dialog>

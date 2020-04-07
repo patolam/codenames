@@ -25,6 +25,10 @@
 
       color: $gelato;
       background-color: $mustard;
+
+      &[disabled] {
+        background-color: $gray;
+      }
     }
   }
 

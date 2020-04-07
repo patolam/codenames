@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { BoardState } from '../../../../../../shared/model/state';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'cdn-dialog-moves',
@@ -11,12 +11,14 @@ import { FormGroup } from '@angular/forms';
 export class DialogMovesComponent implements OnInit {
   state: BoardState;
   playerForm: FormGroup;
+  movesForm: FormGroup;
 
   items: number[];
 
   constructor(
     public dialogRef: MatDialogRef<DialogMovesComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private formBuilder: FormBuilder
   ) {
     this.state = data.state;
     this.playerForm = data.playerForm;
@@ -28,6 +30,15 @@ export class DialogMovesComponent implements OnInit {
     for (let i = 0; i < this.getMax(); i++) {
       this.items.push(i + 1);
     }
+
+    this.movesForm = this.formBuilder.group({
+      word: ['',
+        [
+          Validators.minLength(2),
+          Validators.pattern('^[^\\s]+(\\s+[^\\s]{1})*$')
+        ]
+      ],
+    });
   }
 
   private getMax(): number {
