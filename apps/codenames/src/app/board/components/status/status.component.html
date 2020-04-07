@@ -1,8 +1,8 @@
 <div class="container" *ngIf="state?.game?.current as current">
-  <span class="info">{{ (current?.wordsNo ? 'board.keyword' : 'board.nextTeam') | translate }}</span>
+  <span class="info">{{ (current?.wordsNo ? 'board.keyword' : 'board.nextPlayer') | translate }}</span>
 
   <cdn-caption [ngClass]="{'red': current?.team ===  'Red', 'blue': current?.team ===  'Blue'}">
-    <span *ngIf="!current?.wordsNo">{{ ('common.team.' + current?.team) | translate }}</span>
+    <span *ngIf="!current?.wordsNo">{{ state?.players[state?.game?.leaders[current?.team === 'Red' ? 'red' : 'blue'].id]?.name }}</span>
     <span *ngIf="current?.wordsNo">{{ current?.word }} # {{ current?.wordsNo }}</span>
   </cdn-caption>
 </div>
