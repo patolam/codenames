@@ -49,28 +49,10 @@
       }
     }
 
-    .accept {
-      font-family: 'Baloo 2', cursive;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      width: 5em;
-      height: 5em;
-      padding: 8px;
-
-      border: 0;
-      background-color: $mustard;
-
-      color: $gelato;
-      font-size: 24px;
-      text-transform: uppercase;
-      cursor: pointer;
-      outline: none;
-
-      &[disabled] {
-        background-color: $gray;
+    cdn-button::ng-deep {
+      button {
+        width: 100px;
+        height: 100px;
       }
     }
   }
