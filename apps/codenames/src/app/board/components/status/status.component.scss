@@ -7,7 +7,7 @@
   width: 100%;
   margin-bottom: 20px;
 
-  .container {
+  .current, .remaining {
     display: flex;
     align-items: center;
 
@@ -17,10 +17,23 @@
       text-transform: uppercase;
 
       margin-right: 16px;
+
+      @media only screen and (max-width: 768px) {
+        font-size: 14px;
+        margin-right: 8px;
+      }
     }
 
     .vs {
       margin-left: 16px;
+    }
+  }
+
+  .remaining {
+    @media only screen and (max-width: 768px) {
+      .info {
+        display: none;
+      }
     }
   }
 }

@@ -10,6 +10,10 @@
 
   background-color: white;
 
+  @media only screen and (max-width: 768px) {
+    padding: 0 16px;
+  }
+
   cdn-button + cdn-button {
     margin-left: 8px;
   }

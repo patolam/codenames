@@ -12,6 +12,10 @@
   background-color: $blue;
   padding: 0 32px;
 
+  @media only screen and (max-width: 768px) {
+    padding: 0 16px;
+  }
+
   .title {
     display: flex;
     align-items: center;

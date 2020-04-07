@@ -1,4 +1,4 @@
-<div class="container" *ngIf="state?.game?.current as current">
+<div class="current" *ngIf="state?.game?.current as current">
   <span class="info">{{ (current?.wordsNo ? 'board.keyword' : 'board.nextPlayer') | translate }}</span>
 
   <cdn-caption [ngClass]="{'red': current?.team ===  'Red', 'blue': current?.team ===  'Blue'}">
@@ -7,7 +7,7 @@
   </cdn-caption>
 </div>
 
-<div class="container" *ngIf="playerForm.get('team').value">
+<div class="remaining" *ngIf="playerForm.get('team').value">
   <span class="info">{{ 'board.remainingWords' | translate }}</span>
 
   <cdn-caption class="red">
