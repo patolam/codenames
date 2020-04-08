@@ -1,12 +1,15 @@
 @import "../../../../assets/colors";
 
 :host {
-  display: flex;
+  display: inline-flex;
   padding: 4px 8px;
 
   color: $gelato;
   font-size: 18px;
   text-transform: uppercase;
+
+  background-color: $violet;
+  border-bottom: 2px solid $gelato;
 
   @media only screen and (max-width: 768px) {
     font-size: 16px;

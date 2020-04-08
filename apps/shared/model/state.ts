@@ -52,6 +52,7 @@ export interface BoardState {
     blues: number;
   },
   event?: {
+    startGame?: boolean;
     endGame?: boolean;
     textSend?: boolean;
   }

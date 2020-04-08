@@ -8,6 +8,7 @@ import { DialogPlayerComponent } from '../../dialogs/dialog-player/dialog-player
 import { MatDialog } from '@angular/material/dialog';
 import { DialogEndGameComponent } from '../../dialogs/dialog-end-game/dialog-end-game.component';
 import { ChatComponent } from '../../components/chat/chat.component';
+import { Tab } from '../../model/tabs';
 
 @Component({
   selector: 'cdn-board',
@@ -24,6 +25,12 @@ export class BoardComponent implements OnInit {
   state: BoardState;
   playerForm: FormGroup;
 
+  tabs: Tab[] = [
+    Tab.Chat,
+    Tab.Board
+  ];
+  tab: Tab;
+
   constructor(
     private socket: Socket,
     private formBuilder: FormBuilder,
@@ -34,6 +41,8 @@ export class BoardComponent implements OnInit {
       this.boardId = id;
       this.state$ = this.socket.fromEvent<BoardState>(id);
     });
+
+    this.tab = this.tabs[0];
   }
 
   ngOnInit(): void {
@@ -68,6 +77,11 @@ export class BoardComponent implements OnInit {
       }
       if (this.state?.event?.textSend === true) {
         this.chat?.scrollToEnd();
+      }
+      if (this.state?.event?.startGame === true) {
+        if (state?.game?.leaders?.blue?.id === this.clientId || state?.game?.leaders?.red?.id === this.clientId) {
+          this.tab = this.tabs[1];
+        }
       }
     });
   }

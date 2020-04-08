@@ -20,8 +20,6 @@
       display: flex;
       flex-direction: column;
 
-      //width: 100%;
-
       .live {
         display: flex;
         align-items: center;
@@ -34,6 +32,11 @@
 
     .panel {
       flex: 0 1 40%;
+
+      .tabs {
+        display:flex;
+        margin: 16px;
+      }
     }
   }
 }
@@ -42,4 +45,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+cdn-button + cdn-button {
+  margin-left: 1px;
 }

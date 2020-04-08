@@ -28,4 +28,10 @@
       cursor: default;
     }
   }
+
+  &.inactive {
+    .button:not([disabled]) {
+      background-color: lighten($mustard, 10%);
+    }
+  }
 }

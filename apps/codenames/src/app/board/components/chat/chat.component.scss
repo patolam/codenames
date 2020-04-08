@@ -7,12 +7,12 @@
     overflow-y: auto;
 
     margin: 16px;
-    height: 200px;
+    height: 13vw;
 
     &__entry {
       display: flex;
       align-items: center;
-      margin: 4px 8px;
+      margin: 4px 0;
 
       .name {
         padding: 2px 4px;
@@ -53,6 +53,11 @@
             border-radius: 0;
           }
         }
+      }
+
+      .mat-form-field-wrapper {
+        margin: 0;
+        padding: 0;
       }
 
       .mat-form-field-infix {

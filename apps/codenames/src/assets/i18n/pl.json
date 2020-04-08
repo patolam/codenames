@@ -20,6 +20,10 @@
     "remainingWords": "Pozostałe słowa",
     "vs": "vs"
   },
+  "tabs": {
+    "chat": "Czat",
+    "board": "Plansza"
+  },
   "chat": {
     "input": {
       "placeholder": "Napisz coś"

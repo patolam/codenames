@@ -114,7 +114,12 @@ export class AppGateway
 
       this.server.emit(
         data.boardId,
-        this.stateService.gameStart(game, players, data)
+        {
+          ...this.stateService.gameStart(game, players, data),
+          event: {
+            startGame: true
+          }
+        }
       );
     }
   }
