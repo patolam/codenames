@@ -57,9 +57,10 @@ export interface BoardState {
     textSend?: boolean;
   }
   chat: {
-    name: string;
-    team: Team;
-    text: string
+    name?: string;
+    team?: Team;
+    text: string;
+    params?: any;
   }[],
   dictionary: string[],
 }

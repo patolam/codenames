@@ -1,11 +1,12 @@
 <div class="chat" #chat>
   <div class="chat__entry" *ngFor="let entry of state?.chat">
     <span
+      *ngIf="entry.name"
       class="name"
       [ngClass]="{'name__reds': entry.team === 'Red', 'name__blues': entry.team === 'Blue'}"
     >{{ entry.name }}
     </span>
-    <span class="text">{{ entry.text }}</span>
+    <span class="text">{{ entry.name ? entry.text : (entry.text | translate:entry.params) }}</span>
   </div>
 </div>
 <div class="input">

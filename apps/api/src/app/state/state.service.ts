@@ -35,6 +35,11 @@ export class StateService {
         leadNo: 0,
         requests: {}
       };
+
+      state.chat.push({
+        text: 'chat.server.playerJoined',
+        params: { value: player.name }
+      });
     }
 
     state.players[clientId] = {
@@ -83,6 +88,10 @@ export class StateService {
       state.dictionary.splice(0, 25);
     }
 
+    state.chat.push({
+      text: 'chat.server.gameStart',
+    });
+
     return state;
   }
 
@@ -95,6 +104,10 @@ export class StateService {
 
     state.players = players;
     state.game = null;
+
+    state.chat.push({
+      text: 'chat.server.gameStop',
+    });
 
     return state;
   }
@@ -111,6 +124,10 @@ export class StateService {
       reds: 0,
       blues: 0
     };
+
+    state.chat.push({
+      text: 'chat.server.scoreClear',
+    });
 
     return state;
   }
@@ -208,8 +225,14 @@ export class StateService {
 
     state.players = players;
 
-    if (winner && state.dictionary.length < 25) {
-      state.dictionary = _.shuffle(dictionary);
+    if (winner) {
+      state.chat.push({
+        text: 'chat.server.gameEnd'
+      });
+
+      if (state.dictionary.length < 25) {
+        state.dictionary = _.shuffle(dictionary);
+      }
     }
 
     return state;

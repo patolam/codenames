@@ -27,6 +27,13 @@
   "chat": {
     "input": {
       "placeholder": "Napisz coś"
+    },
+    "server": {
+      "playerJoined": "Dołącza do nas {{value}}",
+      "gameStart": "Zaczynamy rundę, powodzenia!",
+      "gameStop": "Gra została anulowana",
+      "gameEnd": "Koniec rundy, gratulacje!",
+      "scoreClear": "Wyczyściliśmy wyniki"
     }
   },
   "dialog": {
