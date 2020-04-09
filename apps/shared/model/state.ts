@@ -54,6 +54,7 @@ export interface BoardState {
   event?: {
     startGame?: boolean;
     endGame?: boolean;
+    stopGame?: boolean;
     textSend?: boolean;
   }
   chat: {

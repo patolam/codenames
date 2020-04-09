@@ -145,7 +145,15 @@ export class AppGateway
     if (requestedNo === playersValues.length) {
       this.log.info(`Game stopped: [${data.boardId}]`);
 
-      this.server.emit(data.boardId, this.stateService.gameStop(data));
+      this.server.emit(
+        data.boardId,
+        {
+          ...this.stateService.gameStop(data),
+          event: {
+            stopGame: true
+          }
+        }
+      );
     }
   }
 

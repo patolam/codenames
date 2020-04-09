@@ -81,9 +81,10 @@ export class BoardComponent implements OnInit {
       if (this.state?.event?.startGame === true) {
         if (state?.game?.leaders?.blue?.id === this.clientId || state?.game?.leaders?.red?.id === this.clientId) {
           this.tab = this.tabs[1];
-        } else {
-          this.tab = this.tabs[0];
         }
+      }
+      if (this.state?.event?.stopGame === true) {
+        this.tab = this.tabs[0];
       }
     });
   }
