@@ -30,10 +30,13 @@ export class AppService {
   }
 
   getNextLeader(players: Dict<Player>, team: Team): string {
-    const teamIds: string[] = Object.keys(players).filter((key: string) => players[key].team === team);
-    const minLead = _.minBy(Object.values(players), 'leadNo').leadNo;
+    const teamEntries: [string, Player][] = Object.entries(players).filter((item: [string, Player]) => item[1].team === team);
+    const minLeads: number = _.minBy(teamEntries, (item: [string, Player]) => item[1].leadNo)[1].leadNo;
 
-    return _.sample(teamIds.filter((key: string) => players[key].leadNo === minLead));
+    return _.sample(teamEntries
+      .filter((item: [string, Player]) => item[1].leadNo === minLeads)
+      .map(item => item[0])
+    );
   }
 
   private simpleBoardFactory = (value: any) => {
