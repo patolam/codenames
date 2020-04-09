@@ -72,16 +72,18 @@ export class BoardComponent implements OnInit {
         this.playerForm.enable();
       }
 
-      if (this.state?.event?.endGame === true) {
-        this.openDialogEndGame();
-      }
       if (this.state?.event?.textSend === true) {
         this.chat?.scrollToEnd();
       }
       if (this.state?.event?.startGame === true) {
+        this.tab = this.tabs[0];
+
         if (state?.game?.leaders?.blue?.id === this.clientId || state?.game?.leaders?.red?.id === this.clientId) {
           this.tab = this.tabs[1];
         }
+      }
+      if (this.state?.event?.endGame === true) {
+        this.openDialogEndGame();
       }
       if (this.state?.event?.stopGame === true) {
         this.tab = this.tabs[0];
