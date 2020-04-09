@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { AppState, BoardState, Game, Player, Team } from '../../../../shared/model/state';
+import { AppState, BoardState, Dict, Game, Player, Team } from '../../../../shared/model/state';
 import { AppService } from '../app.service';
 import { dictionary } from '../../assets/dictionary';
 import * as _ from 'lodash';
@@ -170,7 +170,7 @@ export class StateService {
     return state;
   }
 
-  acceptSwitch(data: { boardId: string; accept: { [clientId: string]: [number, number] } }): BoardState {
+  acceptSwitch(data: { boardId: string; accept: Dict<[number, number]> }): BoardState {
     const { boardId, accept } = data;
     const state = this.appState.boards[boardId];
 

@@ -3,6 +3,10 @@ export enum Team {
   Blue = 'Blue',
 }
 
+export interface Dict<T> {
+  [key: string]: T,
+}
+
 export interface Player {
   name?: string;
   team?: Team;
@@ -36,16 +40,12 @@ export interface Game {
     game: number[][];
     live: number[][];
   };
-  accept: {
-    [clientId: string]: [number, number]
-  };
+  accept: Dict<[number, number]>;
   winner: Team;
 }
 
 export interface BoardState {
-  players: {
-    [clientId: string]: Player,
-  };
+  players: Dict<Player>;
   game: Game;
   score: {
     reds: number;
@@ -66,7 +66,5 @@ export interface BoardState {
 }
 
 export interface AppState {
-  boards: {
-    [key: string]: BoardState,
-  };
+  boards: Dict<BoardState>;
 }

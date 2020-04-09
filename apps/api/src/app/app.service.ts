@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Player, Team } from '../../../shared/model/state';
+import { Dict, Player, Team } from '../../../shared/model/state';
 import * as _ from 'lodash';
 
 @Injectable()
@@ -29,7 +29,7 @@ export class AppService {
     return this.arrayToBoard(_.shuffle(board));
   }
 
-  getNextLeader(players: { [key: string]: Player }, team: Team): string {
+  getNextLeader(players: Dict<Player>, team: Team): string {
     const teamIds: string[] = Object.keys(players).filter((key: string) => players[key].team === team);
     const minLead = _.minBy(Object.values(players), 'leadNo').leadNo;
 

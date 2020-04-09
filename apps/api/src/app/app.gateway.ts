@@ -7,7 +7,7 @@ import {
   WebSocketServer
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
-import { BoardState, Game, Player, Team } from '../../../shared/model/state';
+import { BoardState, Dict, Game, Player, Team } from '../../../shared/model/state';
 import * as _ from 'lodash';
 import { AppService } from './app.service';
 import { StateService } from './state/state.service';
@@ -18,7 +18,7 @@ export class AppGateway
   implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer() server: Server;
 
-  private readonly boards: { [key: string]: BoardState };
+  private readonly boards: Dict<BoardState>;
 
   private log;
 
