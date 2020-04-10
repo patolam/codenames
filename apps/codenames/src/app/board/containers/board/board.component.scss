@@ -6,7 +6,7 @@
 
   .area {
     display: flex;
-    margin: 16px;
+    margin: 0 16px;
 
     @media only screen and (max-width: 768px) {
       flex-direction: column;
