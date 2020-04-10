@@ -14,9 +14,17 @@ export class TileComponent implements OnInit {
     max: number;
   };
 
-  deg: number;
+  offset: {
+    deg: number;
+    x: number;
+    y: number;
+  };
 
   ngOnInit(): void {
-    this.deg = _.random(-3, 3, true);
+    this.offset = {
+      deg: _.random(-3, 3, true),
+      x: _.random(-2, 2, true),
+      y: _.random(-2, 2, true)
+    };
   }
 }

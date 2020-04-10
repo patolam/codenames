@@ -1,5 +1,5 @@
 <div
-  [ngStyle]="{'transform': 'rotate(' + deg + 'deg)'}"
+  [ngStyle]="{'transform': 'rotate(' + offset.deg + 'deg) translate(' + offset.x + 'px, ' + offset.y + 'px)'}"
   class="tile"
   [ngClass]="{
     'tile--yellow': value === -1,
