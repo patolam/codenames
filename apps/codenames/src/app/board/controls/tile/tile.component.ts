@@ -1,9 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'cdn-tile',
   templateUrl: './tile.component.html',
-  styleUrls: ['./tile.component.scss']
+  styleUrls: ['./tile.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TileComponent implements OnInit {
   @Input() value: number;
@@ -12,9 +14,9 @@ export class TileComponent implements OnInit {
     max: number;
   };
 
-  constructor() { }
+  deg: number;
 
   ngOnInit(): void {
+    this.deg = _.random(-3, 3, true);
   }
-
 }

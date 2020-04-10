@@ -12,7 +12,7 @@
     justify-content: space-around;
 
     background-color: $tile;
-    border: 2px solid $tile;
+    border: 2px solid darken($tile, 5%);
 
     height: 6vw;
     padding: 0;
