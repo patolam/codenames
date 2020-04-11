@@ -4,9 +4,13 @@
   display: block;
   position: relative;
 
+  height: 100%;
+
   .area {
     display: flex;
     margin: 0 16px;
+
+    height: calc(100% - 112px);
 
     @media only screen and (max-width: 768px) {
       flex-direction: column;
@@ -24,6 +28,8 @@
         display: flex;
         align-items: center;
 
+        margin: auto 0;
+
         cdn-layer-live {
           width: 100%;
         }
@@ -33,9 +39,17 @@
     .panel {
       flex: 0 1 40%;
 
-      .tabs {
-        display:flex;
-        margin: 16px;
+      display: flex;
+      flex-direction: column;
+      margin: 16px;
+
+      .switchable {
+        flex: 0 1 60%;
+
+        .tabs {
+          display: flex;
+          margin: 16px 0;
+        }
       }
     }
   }

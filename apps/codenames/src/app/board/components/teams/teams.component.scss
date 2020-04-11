@@ -1,8 +1,14 @@
 @import "../../../../assets/colors";
 
 :host {
+  flex: 0 1 40%;
+
   .teams {
-    margin: 16px;
+    display: flex;
+    flex-direction: column;
+
+    height: 100%;
+
     font-family: 'Baloo 2', cursive;
 
     &__caption {
@@ -25,7 +31,7 @@
       overflow-y: auto;
 
       margin-top: 16px;
-      height: 200px;
+      height: 100%;
 
       border: 2px solid $black;
 

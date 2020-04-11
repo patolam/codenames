@@ -37,32 +37,34 @@
       [state]="state"
     ></cdn-teams>
 
-    <div class="tabs">
-      <cdn-button
-        [ngClass]="{'inactive': tab === tabs[1]}"
-        (click)="tab = tabs[0]"
-      >{{ 'tabs.chat' | translate }}
-      </cdn-button>
-      <cdn-button
-        [ngClass]="{'inactive': tab === tabs[0]}"
-        [disabled]="!state?.game
-        || (state?.game?.leaders?.blue?.id !== clientId && state?.game?.leaders?.red?.id !== clientId)"
-        (click)="tab = tabs[1]"
-      >{{ 'tabs.board' | translate }}
-      </cdn-button>
+    <div class="switchable">
+      <div class="tabs">
+        <cdn-button
+          [ngClass]="{'inactive': tab === tabs[1]}"
+          (click)="tab = tabs[0]"
+        >{{ 'tabs.chat' | translate }}
+        </cdn-button>
+        <cdn-button
+          [ngClass]="{'inactive': tab === tabs[0]}"
+          [disabled]="!state?.game
+          || (state?.game?.leaders?.blue?.id !== clientId && state?.game?.leaders?.red?.id !== clientId)"
+          (click)="tab = tabs[1]"
+        >{{ 'tabs.board' | translate }}
+        </cdn-button>
+      </div>
+
+      <cdn-chat
+        *ngIf="tab === tabs[0]"
+        [state]="state"
+        (sendText)="textSend($event)"
+      ></cdn-chat>
+
+      <cdn-layer-game
+        *ngIf="tab === tabs[1]"
+        [state]="state"
+        [playerForm]="playerForm"
+        (movesAccept)="movesAccept($event)"
+      ></cdn-layer-game>
     </div>
-
-    <cdn-chat
-      *ngIf="tab === tabs[0]"
-      [state]="state"
-      (sendText)="textSend($event)"
-    ></cdn-chat>
-
-    <cdn-layer-game
-      *ngIf="tab === tabs[1]"
-      [state]="state"
-      [playerForm]="playerForm"
-      (movesAccept)="movesAccept($event)"
-    ></cdn-layer-game>
   </div>
 </div>
