@@ -15,6 +15,10 @@
       width: 100%;
       margin: 0.6vw 0.6vw 0 0;
       box-sizing: border-box;
+
+      @media only screen and (max-width: 768px) {
+        margin: 1.2vw 1.2vw 0 0;
+      }
     }
   }
 }
