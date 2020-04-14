@@ -1,6 +1,20 @@
 <cdn-dialog header="{{ 'dialog.endGame.header' | translate }}">
   <div class="container">
-    <span class="info">{{ 'dialog.endGame.info' | translate:getWinnerTranslate() }}</span>
+    <div class="info">{{ 'dialog.endGame.info' | translate:getWinnerTranslate() }}</div>
+
+    <div class="info center">
+      <button class="share" matRipple>
+        <a target="popup"
+           onclick="window.open(
+         'https://www.facebook.com/sharer/sharer.php?u=http://playkeywords.pl',
+         'popup',
+         'width=300, height=400');"
+        >{{ 'dialog.endGame.share.button' | translate }}</a>
+          <img class="fb" src="../../../../assets/img/fb.svg" alt="fb"/>
+      </button>
+    </div>
+
+    <div class="info mini center">{{ 'dialog.endGame.share.info' | translate }}</div>
 
     <div class="button">
       <cdn-button

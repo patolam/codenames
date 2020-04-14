@@ -40,6 +40,10 @@
     "endGame": {
       "header": "No i mamy koniec!",
       "info": "Gracze {{value}} wygrywają!",
+      "share": {
+        "info": "Podobała Ci się gra? Daj znać o Keywords swoim znajomym!",
+        "button": "Udostępnij"
+      },
       "submit": "Jasne, dzięki"
     },
     "moves": {
