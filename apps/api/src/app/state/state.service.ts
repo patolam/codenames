@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { AppState, BoardState, Dict, Game, Player, Team } from '../../../../shared/model/state';
 import { AppService } from '../app.service';
-import { dictionary } from '../../assets/dictionary';
+import { default_pl } from '../../assets/dictionaries/default/pl';
+import { ambiguous_pl } from '../../assets/dictionaries/ambiguous/pl';
 import * as _ from 'lodash';
 
 @Injectable()
@@ -17,7 +18,7 @@ export class StateService {
     const { boardId } = data;
 
     if (!this.appState.boards[boardId]) {
-      this.appState.boards[boardId] = this.createInitialState();
+      this.appState.boards[boardId] = this.createInitialState(boardId);
     }
 
     return this.appState.boards[boardId];
@@ -231,7 +232,7 @@ export class StateService {
       });
 
       if (state.dictionary.length < 25) {
-        state.dictionary = _.shuffle(dictionary);
+        state.dictionary = this.getDictionary(boardId);
       }
     }
 
@@ -287,7 +288,7 @@ export class StateService {
     return { id };
   }
 
-  private createInitialState(): BoardState {
+  private createInitialState(boardId: string): BoardState {
     return {
       players: {},
       game: null,
@@ -296,7 +297,11 @@ export class StateService {
         blues: 0
       },
       chat: [],
-      dictionary: _.shuffle(dictionary),
+      dictionary: this.getDictionary(boardId),
     };
+  }
+
+  private getDictionary(boardId: string) {
+    return _.shuffle(boardId === 'ambiguous' ? ambiguous_pl : default_pl);
   }
 }
