@@ -1,0 +1,28 @@
+16:41:51.678 INFO  Socket server started 
+16:42:14.967 INFO  Client connected: [-5DWcQQ5fPxocJCKAAAA] 
+16:42:32.339 INFO  Client disconnected: [1] [-5DWcQQ5fPxocJCKAAAA] 
+16:42:32.956 INFO  Client connected: [B2xufX-76JYMk5kLAAAB] 
+16:42:34.957 INFO  Client disconnected: [undefined] [B2xufX-76JYMk5kLAAAB] 
+16:42:35.854 INFO  Client connected: [vMs3yhgHITR5zm4-AAAC] 
+16:48:29.711 INFO  Socket server started 
+16:48:30.125 INFO  Client connected: [MiBmXuqNXLcugMi_AAAA] 
+16:48:43.594 INFO  Socket server started 
+16:48:44.119 INFO  Client connected: [nTJic4v49PU0y-Y_AAAA] 
+16:49:22.379 INFO  Socket server started 
+16:49:22.992 INFO  Client connected: [QoC5vUpTSt1xxgHYAAAA] 
+16:49:25.880 INFO  Game started: [1] 
+16:49:30.028 INFO  Game stopped: [1] 
+16:49:30.483 INFO  Game started: [1] 
+16:49:31.305 INFO  Game stopped: [1] 
+16:49:31.634 INFO  Game started: [1] 
+16:49:34.035 INFO  Game stopped: [1] 
+16:49:34.280 INFO  Game started: [1] 
+16:49:39.055 INFO  Client disconnected: [1] [QoC5vUpTSt1xxgHYAAAA] 
+16:49:39.620 INFO  Client connected: [s1skLB0r-giYbpa5AAAB] 
+16:49:42.409 INFO  Game started: [ambiguous] 
+16:49:48.158 INFO  Game stopped: [ambiguous] 
+16:49:48.625 INFO  Game started: [ambiguous] 
+16:50:00.427 INFO  Socket server started 
+16:50:02.923 INFO  Client connected: [GUKzb5NNQG7GLIATAAAA] 
+16:52:33.916 INFO  Client disconnected: [undefined] [GUKzb5NNQG7GLIATAAAA] 
+16:58:10.339 INFO  Socket server started 

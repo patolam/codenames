@@ -302,6 +302,11 @@ export class StateService {
   }
 
   private getDictionary(boardId: string) {
-    return _.shuffle(boardId === 'ambiguous' ? ambiguous_pl : default_pl);
+    const ambiguous = [
+      'ambiguous',
+      'zboczonapaczka'
+    ]
+
+    return _.shuffle(ambiguous.includes(boardId) ? ambiguous_pl : default_pl);
   }
 }
