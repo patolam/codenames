@@ -3,14 +3,9 @@
     <div class="info">{{ 'dialog.endGame.info' | translate:getWinnerTranslate() }}</div>
 
     <div class="info center">
-      <button class="share" matRipple>
-        <a target="popup"
-           onclick="window.open(
-         'https://www.facebook.com/sharer/sharer.php?u=http://playkeywords.pl',
-         'popup',
-         'width=300, height=400');"
-        >{{ 'dialog.endGame.share.button' | translate }}</a>
-          <img class="fb" src="../../../../assets/img/fb.svg" alt="fb"/>
+      <button class="share" matRipple (click)="shareClick()">
+        <span>{{ 'dialog.endGame.share.button' | translate }}</span>
+        <img class="fb" src="../../../../assets/img/fb.svg" alt="fb"/>
       </button>
     </div>
 
