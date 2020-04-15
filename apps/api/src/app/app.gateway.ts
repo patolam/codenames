@@ -11,7 +11,7 @@ import { BoardState, Dict, Game, Player, Team } from '../../../shared/model/stat
 import * as _ from 'lodash';
 import { AppService } from './app.service';
 import { StateService } from './state/state.service';
-import * as SimpleNodeLogger from 'simple-node-logger';
+import { LogsService } from './logs/logs.service';
 
 @WebSocketGateway(90)
 export class AppGateway
@@ -20,22 +20,12 @@ export class AppGateway
 
   private readonly boards: Dict<BoardState>;
 
-  private log;
-
   constructor(
     private appService: AppService,
-    private stateService: StateService
+    private stateService: StateService,
+    private log: LogsService,
   ) {
     this.boards = stateService.appState.boards;
-
-    const opts = {
-      errorEventName: 'error',
-      logDirectory: 'logs',
-      fileNamePattern: 'log-<DATE>.log',
-      dateFormat: 'YYYY-MM-DD'
-    };
-
-    this.log = SimpleNodeLogger.createRollingFileLogger(opts);
   }
 
   @SubscribeMessage('returnState')
@@ -319,14 +309,10 @@ export class AppGateway
     this.log.info('Socket server started');
   }
 
-  handleConnection(client: Socket, ...args: any[]) {
-    this.log.info(`Client connected: [${client.id}]`);
-  }
+  handleConnection(client: Socket, ...args: any[]) {}
 
   handleDisconnect(client: Socket) {
     const { boardId, state } = this.stateService.handleDisconnect(client.id);
-
-    this.log.info(`Client disconnected: [${boardId}] [${client.id}]`);
 
     if (state) {
       this.server.emit(boardId, state);

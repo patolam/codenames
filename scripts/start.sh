@@ -6,12 +6,18 @@
 ####################################
 
 # Kill processes on servers ports
-sudo kill -9 `sudo lsof -t -i:90`
-sudo kill -9 `sudo lsof -t -i:3333`
-sudo kill -9 `sudo lsof -t -i:80`
+fuser -k -n tcp 90
+fuser -k -n tcp 3333
+fuser -k -n tcp 80
+
+cd ..
+
+chown boldare -R dist
 
 # Start Nest.js backend server
-forever start ../node_modules/@angular/cli/bin/ng serve api
+sudo forever start node_modules/@angular/cli/bin/ng serve api
 
 # Start Angular frontend server
-forever start ../node_modules/@angular/cli/bin/ng serve --host=0.0.0.0 --disable-host-check --port 80 --prod
+sudo forever start node_modules/@angular/cli/bin/ng serve --host=0.0.0.0 --disable-host-check --port 80 --prod
+
+cd scripts
