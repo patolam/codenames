@@ -23,7 +23,7 @@ export class AppGateway
   constructor(
     private appService: AppService,
     private stateService: StateService,
-    private log: LogsService,
+    private log: LogsService
   ) {
     this.boards = stateService.appState.boards;
   }
@@ -50,9 +50,9 @@ export class AppGateway
     const players = { ...this.boards[data.boardId].players };
     const playersValues: Player[] = Object.values(players);
 
-    if (!players[client.id].requests.start) {
-      players[client.id].requests.start = true;
-    }
+    players[client.id].requests = {
+      start: true
+    };
 
     const requestedNo = playersValues.filter((player: Player) => player.requests?.start).length;
 
@@ -119,9 +119,9 @@ export class AppGateway
     const players = { ...this.boards[data.boardId].players };
     const playersValues: Player[] = Object.values(players);
 
-    if (!players[client.id].requests.stop) {
-      players[client.id].requests.stop = true;
-    }
+    players[client.id].requests = {
+      stop: true
+    };
 
     const requestedNo = playersValues.filter((player: Player) => player.requests?.stop).length;
 
@@ -152,9 +152,9 @@ export class AppGateway
     const players = { ...this.boards[data.boardId].players };
     const playersValues: Player[] = Object.values(players);
 
-    if (!players[client.id].requests.clear) {
-      players[client.id].requests.clear = true;
-    }
+    players[client.id].requests = {
+      clear: true
+    };
 
     const requestedNo = playersValues.filter((player: Player) => player.requests?.clear).length;
 
