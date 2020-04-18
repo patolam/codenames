@@ -58,6 +58,16 @@
               color: $gelato;
               font-size: 12px;
               text-transform: uppercase;
+
+              .icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                font-size: 1.32em;
+                width: 1.32em;
+                height: 1.32em;
+              }
             }
           }
 

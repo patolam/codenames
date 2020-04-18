@@ -4,6 +4,9 @@ import { AppService } from '../app.service';
 import { default_pl } from '../../assets/dictionaries/default/pl';
 import { ambiguous_pl } from '../../assets/dictionaries/ambiguous/pl';
 import * as _ from 'lodash';
+import * as moment from 'moment';
+
+const DEFAULT_TIMER = 120;
 
 @Injectable()
 export class StateService {
@@ -90,7 +93,7 @@ export class StateService {
     }
 
     state.chat.push({
-      text: 'chat.server.gameStart',
+      text: 'chat.server.gameStart'
     });
 
     return state;
@@ -107,7 +110,7 @@ export class StateService {
     state.game = null;
 
     state.chat.push({
-      text: 'chat.server.gameStop',
+      text: 'chat.server.gameStop'
     });
 
     return state;
@@ -127,8 +130,52 @@ export class StateService {
     };
 
     state.chat.push({
-      text: 'chat.server.scoreClear',
+      text: 'chat.server.scoreClear'
     });
+
+    return state;
+  }
+
+  timerSet(data: { boardId: string }): BoardState {
+    const { boardId } = data;
+    const state = this.appState.boards[boardId];
+
+    const players = { ...state.players };
+    Object.values(players).forEach((player: Player) => player.requests = {});
+
+    state.players = players;
+    state.game.current = {
+      ...state.game.current,
+      timer: moment().add(DEFAULT_TIMER, 's').valueOf()
+    };
+
+    state.chat.push({
+      text: 'chat.server.timerSet'
+    });
+
+    return state;
+  }
+
+  timerUp(data: { boardId: string }): BoardState {
+    const { boardId } = data;
+    const state = this.appState.boards[boardId];
+
+    if (state.game.current.timer) {
+      const current = {
+        team: state.game.current.team === Team.Red ? Team.Blue : Team.Red,
+        wordsNo: null,
+        word: null
+      };
+
+      state.game = {
+        ...state.game,
+        current
+      };
+
+      state.chat.push({
+        text: 'chat.server.timerUp'
+      });
+    }
 
     return state;
   }
@@ -145,7 +192,8 @@ export class StateService {
       current: {
         ...state.game.current,
         wordsNo: move?.wordsNo,
-        word: move?.word
+        word: move?.word,
+        timer: null,
       }
     };
 
@@ -297,7 +345,7 @@ export class StateService {
         blues: 0
       },
       chat: [],
-      dictionary: this.getDictionary(boardId),
+      dictionary: this.getDictionary(boardId)
     };
   }
 
@@ -305,7 +353,7 @@ export class StateService {
     const ambiguous = [
       'ambiguous',
       'zboczonapaczka'
-    ]
+    ];
 
     return _.shuffle(ambiguous.includes(boardId) ? ambiguous_pl : default_pl);
   }

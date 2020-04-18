@@ -52,6 +52,7 @@
     "@types/lodash": "^4.14.149",
     "core-js": "^2.5.4",
     "lodash": "^4.17.15",
+    "moment": "^2.24.0",
     "nestjs": "0.0.1",
     "ngx-socket-io": "^3.0.1",
     "reflect-metadata": "^0.1.13",

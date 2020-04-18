@@ -27,6 +27,7 @@
         <div class="flag" *ngIf="player.value.requests.start">{{ 'teams.ready' | translate }}</div>
         <div class="flag" *ngIf="player.value.requests.stop">{{ 'teams.stop' | translate }}</div>
         <div class="flag" *ngIf="player.value.requests.clear">{{ 'teams.clear' | translate }}</div>
+        <div class="flag" *ngIf="player.value.requests.timer"><mat-icon class="icon">alarm</mat-icon></div>
       </div>
     </div>
 
@@ -37,6 +38,7 @@
         <div class="flag" *ngIf="player.value.requests.start">{{ 'teams.ready' | translate }}</div>
         <div class="flag" *ngIf="player.value.requests.stop">{{ 'teams.stop' | translate }}</div>
         <div class="flag" *ngIf="player.value.requests.clear">{{ 'teams.clear' | translate }}</div>
+        <div class="flag" *ngIf="player.value.requests.timer"><mat-icon class="icon">alarm</mat-icon></div>
       </div>
     </div>
   </div>

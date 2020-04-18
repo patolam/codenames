@@ -7,9 +7,12 @@
 <cdn-toolbar
   [state]="state"
   [clientId]="clientId"
+  [playerForm]="playerForm"
   (startGame)="gameStart()"
   (stopGame)="gameStop()"
   (clearScore)="scoreClear()"
+  (setTimer)="timerSet()"
+  (upTimer)="timerUp()"
 ></cdn-toolbar>
 
 <div class="area">

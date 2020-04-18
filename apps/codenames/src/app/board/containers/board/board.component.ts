@@ -141,6 +141,18 @@ export class BoardComponent implements OnInit {
     });
   }
 
+  timerSet() {
+    this.socket.emit('timerSet', {
+      boardId: this.boardId
+    });
+  }
+
+  timerUp() {
+    this.socket.emit('timerUp', {
+      boardId: this.boardId
+    });
+  }
+
   movesAccept(move: { wordsNo: number; word: string }) {
     this.socket.emit('movesAccept', {
       boardId: this.boardId,

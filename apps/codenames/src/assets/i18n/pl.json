@@ -33,7 +33,9 @@
       "gameStart": "Zaczynamy rundę, powodzenia!",
       "gameStop": "Gra została anulowana",
       "gameEnd": "Koniec rundy, gratulacje!",
-      "scoreClear": "Wyczyściliśmy wyniki"
+      "scoreClear": "Wyczyściliśmy wyniki",
+      "timerSet": "Spieszcie się, uruchomiono czas!",
+      "timerUp": "Czas minął, strata kolejki!"
     }
   },
   "dialog": {

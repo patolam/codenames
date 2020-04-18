@@ -1,19 +1,38 @@
-<cdn-button
-  *ngIf="!state?.game || state?.game?.winner"
-  [disabled]="state?.players[clientId]?.requests?.start === true"
-  (click)="startGame.emit()"
->{{ 'board.button.start' | translate }}
-</cdn-button>
+<div class="left">
+  <div class="left__timer" *ngIf="state?.game && !state?.game?.winner">
+    <cdn-button
+      [disabled]="state?.players[clientId]?.requests?.timer === true
+        || state?.game?.current?.team === playerForm.get('team').value
+        || !!state?.game?.current?.timer
+      "
+      (click)="setTimer.emit()"
+    ><mat-icon>alarm</mat-icon>
+    </cdn-button>
 
-<cdn-button
-  *ngIf="state?.game && !state?.game?.winner"
-  [disabled]="state?.players[clientId]?.requests?.stop === true"
-  (click)="stopGame.emit()"
->{{ 'board.button.stop' | translate }}
-</cdn-button>
+    <div class="timer" *ngIf="state?.game?.current?.timer">
+      <span>{{ time.min }}</span> : <span>{{ time.sec }}</span>
+    </div>
+  </div>
+</div>
 
-<cdn-button
-  [disabled]="state?.players[clientId]?.requests?.clear === true"
-  (click)="clearScore.emit()"
->{{ 'board.button.clear' | translate }}
-</cdn-button>
+<div class="right">
+  <cdn-button
+    *ngIf="!state?.game || state?.game?.winner"
+    [disabled]="state?.players[clientId]?.requests?.start === true"
+    (click)="startGame.emit()"
+  >{{ 'board.button.start' | translate }}
+  </cdn-button>
+
+  <cdn-button
+    *ngIf="state?.game && !state?.game?.winner"
+    [disabled]="state?.players[clientId]?.requests?.stop === true"
+    (click)="stopGame.emit()"
+  >{{ 'board.button.stop' | translate }}
+  </cdn-button>
+
+  <cdn-button
+    [disabled]="state?.players[clientId]?.requests?.clear === true"
+    (click)="clearScore.emit()"
+  >{{ 'board.button.clear' | translate }}
+  </cdn-button>
+</div>

@@ -15,6 +15,7 @@ export interface Player {
     start?: boolean;
     stop?: boolean;
     clear?: boolean;
+    timer?: boolean;
   }
 }
 
@@ -31,9 +32,10 @@ export interface Game {
     }
   }
   current: {
-    team: Team;
+    team?: Team;
     wordsNo?: number;
-    word: string;
+    word?: string;
+    timer?: number;
   };
   layers: {
     words: string[][];
@@ -56,6 +58,7 @@ export interface BoardState {
     endGame?: boolean;
     stopGame?: boolean;
     textSend?: boolean;
+    upTimer?: boolean;
   }
   chat: {
     name?: string;

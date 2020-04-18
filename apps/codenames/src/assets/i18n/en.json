@@ -27,13 +27,26 @@
   "chat": {
     "input": {
       "placeholder": "Say something"
+    },
+    "server": {
+      "playerJoined": "{{value}} has joined us",
+      "gameStart": "We are starting, good luck!",
+      "gameStop": "The game has stopped",
+      "gameEnd": "The game is over, congratulations!",
+      "scoreClear": "We have cleared the score",
+      "timerSet": "Hurry up, the timer is set!",
+      "timerUp": "Time's up, you missed your turn!"
     }
   },
   "dialog": {
     "endGame": {
       "header": "And this is over!",
       "info": "The {{value}} team wins the game!",
-      "submit": "I see, thanks"
+      "submit": "I see, thanks",
+      "share": {
+        "info": "Do you like the game? Let your friends know about Keywords!",
+        "button": "Share"
+      }
     },
     "moves": {
       "header": "What's your keyword?",

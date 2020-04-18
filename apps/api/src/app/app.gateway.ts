@@ -89,7 +89,7 @@ export class AppGateway
         current: {
           team: nextTeam,
           wordsNo: null,
-          word: null
+          word: null,
         },
         layers: {
           words: this.appService.getWordsBoard(state.dictionary),
@@ -168,6 +168,37 @@ export class AppGateway
     if (requestedNo === playersValues.length) {
       this.server.emit(data.boardId, this.stateService.scoreClear(data));
     }
+  }
+
+  @SubscribeMessage('timerSet')
+  timerSet(client: Socket, data: { boardId: string }): void {
+    const state = this.boards[data.boardId];
+    const players = state.players;
+
+    const playersValues: Player[] = Object.values(players);
+    const teamPlayers = _.countBy(Object.values(state.players), item => item.team === state.players[client.id].team).true;
+
+    players[client.id].requests = {
+      timer: true
+    };
+
+    const requestedNo = playersValues.filter((player: Player) => player.requests?.timer).length;
+
+    if (requestedNo <= teamPlayers) {
+      this.server.emit(
+        data.boardId,
+        this.stateService.updateRequest(client.id, { boardId: data.boardId, request: 'timer' })
+      );
+    }
+
+    if (requestedNo === teamPlayers) {
+      this.server.emit(data.boardId, this.stateService.timerSet(data));
+    }
+  }
+
+  @SubscribeMessage('timerUp')
+  timerUp(client: Socket, data: { boardId: string }): void {
+    this.server.emit(data.boardId, this.stateService.timerUp(data));
   }
 
   @SubscribeMessage('movesAccept')
@@ -251,11 +282,7 @@ export class AppGateway
     }
     /* If there was a black tile */
     if (winner) {
-      current = {
-        team: null,
-        wordsNo: null,
-        word: null
-      };
+      current = {};
 
       players[state.game.leaders.red.id].leadNo++;
       players[state.game.leaders.blue.id].leadNo++;
@@ -264,8 +291,6 @@ export class AppGateway
     } else if (gameLayer[col][row] !== teamId) {
       current = {
         team: teamId === 0 ? Team.Blue : Team.Red,
-        wordsNo: null,
-        word: null
       };
       /* If there was your tile and it is not the last move */
     } else if (gameLayer[col][row] === teamId && current.wordsNo > 1) {
@@ -273,8 +298,6 @@ export class AppGateway
     } else if (gameLayer[col][row] === teamId && current.wordsNo === 1) {
       current = {
         team: teamId === 0 ? Team.Blue : Team.Red,
-        wordsNo: null,
-        word: null
       };
     }
 
