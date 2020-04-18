@@ -12,7 +12,7 @@ fuser -k -n tcp 80
 
 cd ..
 
-chown boldare -R dist
+chown root -R dist
 
 # Start Nest.js backend server
 sudo forever start node_modules/@angular/cli/bin/ng serve api
