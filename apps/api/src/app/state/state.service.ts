@@ -326,6 +326,10 @@ export class StateService {
         state.chat.push({
           text: 'chat.server.noLeader'
         });
+
+        state.event = {
+          stopGame: true
+        }
       }
     }
 

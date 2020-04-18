@@ -1,10 +1,12 @@
 <div class="current" *ngIf="state?.game?.current as current">
-  <span class="info">{{ (current?.wordsNo ? 'board.keyword' : 'board.nextPlayer') | translate }}</span>
+  <div class="current__info" *ngIf="state?.game?.current?.team">
+    <span class="info">{{ (current?.wordsNo ? 'board.keyword' : 'board.nextPlayer') | translate }}</span>
 
-  <cdn-caption [ngClass]="{'red': current?.team ===  'Red', 'blue': current?.team ===  'Blue'}">
-    <span *ngIf="!current?.wordsNo">{{ state?.players[state?.game?.leaders[current?.team === 'Red' ? 'red' : 'blue'].id]?.name }}</span>
-    <span *ngIf="current?.wordsNo">{{ current?.word }} # {{ current?.wordsNo }}</span>
-  </cdn-caption>
+    <cdn-caption [ngClass]="{'red': current?.team ===  'Red', 'blue': current?.team ===  'Blue'}">
+      <span *ngIf="!current?.wordsNo">{{ state?.players[state?.game?.leaders[current?.team === 'Red' ? 'red' : 'blue'].id]?.name }}</span>
+      <span *ngIf="current?.wordsNo">{{ current?.word }} # {{ current?.wordsNo }}</span>
+    </cdn-caption>
+  </div>
 </div>
 
 <div class="remaining" *ngIf="playerForm.get('team').value">

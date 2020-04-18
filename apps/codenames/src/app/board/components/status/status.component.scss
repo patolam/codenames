@@ -14,6 +14,11 @@
     display: flex;
     align-items: center;
 
+    &__info {
+      display: flex;
+      align-items: center;
+    }
+
     .info, .vs {
       font-family: 'Baloo 2', cursive;
       font-size: 20px;
