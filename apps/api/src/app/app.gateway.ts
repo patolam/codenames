@@ -138,7 +138,7 @@ export class AppGateway
       this.server.emit(
         data.boardId,
         {
-          ...this.stateService.gameStop(data),
+          ...this.stateService.gameStop({ ...data, chat: true}),
           event: {
             stopGame: true
           }

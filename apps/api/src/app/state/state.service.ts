@@ -99,8 +99,8 @@ export class StateService {
     return state;
   }
 
-  gameStop(data: { boardId: string }): BoardState {
-    const { boardId } = data;
+  gameStop(data: { boardId: string; chat: boolean }): BoardState {
+    const { boardId, chat } = data;
     const state = this.appState.boards[boardId];
 
     const players = { ...state.players };
@@ -109,9 +109,11 @@ export class StateService {
     state.players = players;
     state.game = null;
 
-    state.chat.push({
-      text: 'chat.server.gameStop'
-    });
+    if (chat) {
+      state.chat.push({
+        text: 'chat.server.gameStop'
+      });
+    }
 
     return state;
   }
@@ -289,12 +291,14 @@ export class StateService {
 
   handleDisconnect(clientId: string): { boardId: string; state: BoardState } {
     let boardId: string;
+    let deletedName: string;
 
     /* Find the board id the client */
     Object.keys(this.appState.boards).forEach(key => {
       if (this.appState.boards[key].players[clientId]) {
-        delete this.appState.boards[key].players[clientId];
         boardId = key;
+        deletedName = this.appState.boards[key].players[clientId].name;
+        delete this.appState.boards[key].players[clientId];
       }
 
       /* Delete leader entry */
@@ -310,9 +314,18 @@ export class StateService {
     if (boardId) {
       const { game } = state;
 
+      state.chat.push({
+        text: 'chat.server.playerLeft',
+        params: { value: deletedName }
+      });
+
       /* Stop the game if there is no leader left for the team */
       if (game && !(game.leaders.red && game.leaders.blue)) {
-        state = this.gameStop({ boardId });
+        state = this.gameStop({ boardId, chat: false});
+
+        state.chat.push({
+          text: 'chat.server.noLeader'
+        });
       }
     }
 

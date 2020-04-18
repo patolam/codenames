@@ -30,6 +30,8 @@
     },
     "server": {
       "playerJoined": "Dołącza do nas {{value}}",
+      "playerLeft": "{{value}} rozłącza się",
+      "noLeader": "Lider zaginął, przerywamy grę",
       "gameStart": "Zaczynamy rundę, powodzenia!",
       "gameStop": "Gra została anulowana",
       "gameEnd": "Koniec rundy, gratulacje!",

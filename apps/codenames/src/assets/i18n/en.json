@@ -30,6 +30,8 @@
     },
     "server": {
       "playerJoined": "{{value}} has joined us",
+      "playerLeft": "{{value}} is disconnected",
+      "noLeader": "The leader is missing, we stopped the game",
       "gameStart": "We are starting, good luck!",
       "gameStop": "The game has stopped",
       "gameEnd": "The game is over, congratulations!",
