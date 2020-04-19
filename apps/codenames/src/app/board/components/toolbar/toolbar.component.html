@@ -1,3 +1,9 @@
+<div
+  *ngIf="state?.game?.current?.timer"
+  [ngStyle]="lineStyle"
+  class="line">
+</div>
+
 <div class="left">
   <div class="left__timer" *ngIf="state?.game && !state?.game?.winner">
     <cdn-button
@@ -10,7 +16,9 @@
     </cdn-button>
 
     <div class="timer" *ngIf="state?.game?.current?.timer">
-      <span>{{ time.min }}</span> : <span>{{ time.sec }}</span>
+      <span>{{ time.min }}</span>
+      <span class="space">:</span>
+      <span>{{ time.sec }}</span>
     </div>
   </div>
 </div>
