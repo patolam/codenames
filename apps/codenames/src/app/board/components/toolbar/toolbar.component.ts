@@ -29,7 +29,7 @@ export class ToolbarComponent implements OnChanges {
   @Output() upTimer: EventEmitter<void> = new EventEmitter();
 
   time: Timer = {};
-  lineStyle = {};
+  lineStyle: any = {};
 
   counter = timer(0, 500)
     .subscribe(() => {
@@ -48,7 +48,8 @@ export class ToolbarComponent implements OnChanges {
           };
 
           this.lineStyle = {
-            width: 'calc(100vw * ' + this.time?.line + ')'
+            width: 'calc(100vw * ' + this.time?.line + ')',
+            opacity: this.lineStyle.opacity === 1 ? 0.6 : 1
           };
         } else {
           this.upTimer.emit();
