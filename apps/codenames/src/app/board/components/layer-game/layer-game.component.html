@@ -13,7 +13,7 @@
   </div>
 
   <cdn-button
-    (click)="openDialog()"
+    (press)="openDialog()"
     [disabled]="state?.game?.current?.wordsNo || state?.game?.current?.team !== playerForm.get('team').value"
   >{{ 'layer.game.accept' | translate }}
   </cdn-button>

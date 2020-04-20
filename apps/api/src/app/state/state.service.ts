@@ -5,8 +5,7 @@ import { default_pl } from '../../assets/dictionaries/default/pl';
 import { ambiguous_pl } from '../../assets/dictionaries/ambiguous/pl';
 import * as _ from 'lodash';
 import * as moment from 'moment';
-
-const DEFAULT_TIMER = 90;
+import { DEFAULT_TIMER } from '../../../../shared/consts/consts';
 
 @Injectable()
 export class StateService {

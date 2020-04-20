@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { BoardState } from '../../../../../../shared/model/state';
 import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -9,7 +9,7 @@ import { DialogMovesComponent } from '../../dialogs/dialog-moves/dialog-moves.co
   templateUrl: './layer-game.component.html',
   styleUrls: ['./layer-game.component.scss']
 })
-export class LayerGameComponent implements OnInit {
+export class LayerGameComponent implements OnChanges {
   @Input() state: BoardState;
   @Input() playerForm: FormGroup;
 
@@ -17,10 +17,15 @@ export class LayerGameComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog
-  ) {
-  }
+  ) {}
 
-  ngOnInit(): void {
+  ngOnChanges(changes: SimpleChanges): void {
+    const prev: BoardState = changes.state?.previousValue;
+    const curr: BoardState = changes.state?.currentValue;
+
+    if (prev?.game?.current?.timer && !curr?.game?.current?.timer) {
+      this.dialog.closeAll();
+    }
   }
 
   openDialog(): void {
@@ -37,5 +42,4 @@ export class LayerGameComponent implements OnInit {
       this.movesAccept.emit(move);
     });
   }
-
 }

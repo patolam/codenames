@@ -3,8 +3,7 @@ import { BoardState } from '../../../../../../shared/model/state';
 import { timer } from 'rxjs';
 import * as moment from 'moment';
 import { FormGroup } from '@angular/forms';
-
-const DEFAULT_TIMER = 90;
+import { DEFAULT_TIMER } from '../../../../../../shared/consts/consts';
 
 interface Timer {
   min?: string;
@@ -58,10 +57,10 @@ export class ToolbarComponent implements OnChanges {
     });
 
   ngOnChanges(changes: SimpleChanges): void {
-    const prev: BoardState = changes.state.previousValue;
-    const curr: BoardState = changes.state.currentValue;
+    const prev: BoardState = changes.state?.previousValue;
+    const curr: BoardState = changes.state?.currentValue;
 
-    if (!prev.game.current.timer && curr.game.current.timer) {
+    if (!prev?.game?.current?.timer && curr?.game?.current?.timer) {
       this.time = {};
       this.lineStyle = {};
     }

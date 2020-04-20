@@ -1,6 +1,7 @@
 <button
   matRipple
   class="button"
+  (click)="!disabled && press.emit()"
   [disabled]="disabled"
 >
   <ng-content></ng-content>

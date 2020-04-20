@@ -292,6 +292,10 @@ export class AppGateway
       current = {
         team: teamId === 0 ? Team.Blue : Team.Red,
       };
+
+      Object.keys(players).forEach((key: string) => {
+        players[key].requests = {};
+      });
       /* If there was your tile and it is not the last move */
     } else if (gameLayer[col][row] === teamId && current.wordsNo > 1) {
       current.wordsNo--;

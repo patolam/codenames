@@ -44,14 +44,14 @@
       <div class="tabs">
         <cdn-button
           [ngClass]="{'inactive': tab === tabs[1]}"
-          (click)="tab = tabs[0]"
+          (press)="tab = tabs[0]"
         >{{ 'tabs.chat' | translate }}
         </cdn-button>
         <cdn-button
           [ngClass]="{'inactive': tab === tabs[0]}"
           [disabled]="!state?.game
           || (state?.game?.leaders?.blue?.id !== clientId && state?.game?.leaders?.red?.id !== clientId)"
-          (click)="tab = tabs[1]"
+          (press)="tab = tabs[1]"
         >{{ 'tabs.board' | translate }}
         </cdn-button>
       </div>
