@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  api: 'http://77.55.228.42:3333/api',
-  socket: 'http://77.55.228.42:90',
+  api: 'http://ec2-3-15-217-176.us-east-2.compute.amazonaws.com:3333/api',
+  socket: 'http://ec2-3-15-217-176.us-east-2.compute.amazonaws.com:90',
 };
