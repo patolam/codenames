@@ -1,1 +1,1 @@
-export const DEFAULT_TIMER = 10;
+export const DEFAULT_TIMER = 90;
